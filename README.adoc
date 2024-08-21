@@ -1,0 +1,44 @@
+= Rfcxml
+
+The rfcxml gem is a parser and generator for RFC XML documents. It is intended
+to be used to parse and generate RFC XML documents.
+
+== Installation
+
+Add this line to your application's Gemfile:
+
+[source,ruby]
+----
+gem 'rfcxml'
+----
+
+And then execute:
+
+[source]
+----
+$ bundle install
+----
+
+Or install it yourself as:
+
+[source]
+----
+$ gem install rfcxml
+----
+
+
+
+
+== Usage
+
+
+== Development
+
+
+== Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rfcxml. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/rfcxml/blob/main/CODE_OF_CONDUCT.md).
+
+== Code of Conduct
+
+Everyone interacting in the Xml2rfc project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/rfcxml/blob/main/CODE_OF_CONDUCT.md).
