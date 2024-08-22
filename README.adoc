@@ -1,7 +1,8 @@
-= Rfcxml
+= RFC XML Ruby library
 
-The rfcxml gem is a parser and generator for RFC XML documents. It is intended
-to be used to parse and generate RFC XML documents.
+The `rfcxml` library is a parser and generator for RFC XML documents. It is
+intended to be used to parse and generate RFC XML v3 documents.
+
 
 == Installation
 
@@ -28,17 +29,47 @@ $ gem install rfcxml
 
 
 
-
 == Usage
 
+To parse an RFC XML document:
 
-== Development
+[source,ruby]
+----
+require 'rfcxml'
+
+rfc = Rfcxml::Document.new(File.read('rfc.xml'))
+puts rfc.title
+puts rfc.abstract
+puts rfc.sections
+----
+
+To generate an RFC XML document:
+
+[source,ruby]
+----
+require 'rfcxml'
+
+rfc = Rfcxml::Document.new
+rfc.title = 'An RFC Title'
+rfc.abstract = 'An RFC Abstract'
+rfc.sections = [
+  Rfcxml::Section.new('Section 1', 'This is the first section'),
+  Rfcxml::Section.new('Section 2', 'This is the second section')
+]
+
+puts rfc.to_xml
+----
+
 
 
 == Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rfcxml. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/rfcxml/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/metanorma/rfcxml.
 
-== Code of Conduct
 
-Everyone interacting in the Xml2rfc project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/rfcxml/blob/main/CODE_OF_CONDUCT.md).
+== Copyright and license
+
+The gem is available as open source under the terms of the BSD 2-clause license.
+
+All rights reserved. Ribose.
