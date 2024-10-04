@@ -14,7 +14,7 @@ module Rfcxml
       attribute :anchor, :string
       attribute :derived_anchor, :string
       attribute :target, :string
-      attribute :quote_title, :string, default: -> { "true" }
+      # attribute :quote_title, :string, default: -> { "true" }
       attribute :quote_title, :string
       attribute :stream, :string
       attribute :front, Front
@@ -24,13 +24,13 @@ module Rfcxml
       attribute :series_info, SeriesInfo, collection: true
 
       xml do
-        root "reference"
+        root "reference", mixed: true
 
         map_attribute "anchor", to: :anchor
         map_attribute "derivedAnchor", to: :derived_anchor
         map_attribute "target", to: :target
         map_attribute "quoteTitle", to: :quote_title
-        map_attribute "quote-title", to: :quote_title
+        # map_attribute "quote-title", to: :quote_title
         map_element "stream", to: :stream
         map_element "front", to: :front
         map_element "annotation", to: :annotation
