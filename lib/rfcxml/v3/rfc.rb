@@ -18,6 +18,7 @@ module Rfcxml
       attribute :consensus, :string, default: -> { "false" }
       attribute :series_no, :string
       attribute :ipr, :string
+      attribute :lang, :string
       attribute :ipr_extract, :string
       attribute :submission_type, :string, default: -> { "IETF" }
       attribute :doc_name, :string
@@ -58,6 +59,7 @@ module Rfcxml
         map_attribute "version", to: :version
         map_attribute "scripts", to: :scripts
         map_attribute "expiresDate", to: :expires_date
+        map_attribute "lang", to: :lang, prefix: :xml
         map_element "link", to: :link
         map_element "front", to: :front
         map_element "middle", to: :middle

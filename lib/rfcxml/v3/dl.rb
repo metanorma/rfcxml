@@ -2,13 +2,13 @@
 
 require "lutaml/model"
 
-# require_relative "dd"
-# require_relative "dt"
+require_relative "dd"
+require_relative "dt"
 
 module Rfcxml
   module V3
-    class Dd < Lutaml::Model::Serializable; end
-    class Dt < Lutaml::Model::Serializable; end
+    # class Dd < Lutaml::Model::Serializable; end
+    # class Dt < Lutaml::Model::Serializable; end
 
     class Dl < Lutaml::Model::Serializable
       attribute :anchor, :string
@@ -20,7 +20,7 @@ module Rfcxml
       attribute :dd, Dd, collection: true
 
       xml do
-        root "dl"
+        root "dl", mixed: true
 
         map_attribute "anchor", to: :anchor
         map_attribute "spacing", to: :spacing

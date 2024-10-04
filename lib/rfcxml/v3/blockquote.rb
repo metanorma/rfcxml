@@ -27,6 +27,7 @@ require_relative "xref"
 module Rfcxml
   module V3
     class Ol < Lutaml::Model::Serializable; end
+    class Dl < Lutaml::Model::Serializable; end
 
     class Blockquote < Lutaml::Model::Serializable
       attribute :content, :string
