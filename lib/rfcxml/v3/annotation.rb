@@ -35,7 +35,7 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "annotation"
+        root "annotation", mixed: true
 
         map_content to: :content
         map_element "bcp14", to: :bcp14

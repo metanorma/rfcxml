@@ -30,7 +30,7 @@ module Rfcxml
       attribute :toc, Toc
 
       xml do
-        root "front"
+        root "front", mixed: true
 
         map_element "title", to: :title
         map_element "seriesInfo", to: :series_info
