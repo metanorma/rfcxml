@@ -7,7 +7,7 @@ RSpec.describe Rfcxml::V3::Rfc do
   end
 
   glob_path = Pathname.new(__dir__)
-                      .join("../xmlsource-rfc8650-latest/*.xml")
+    .join("../xmlsource-rfc8650-latest/*.xml")
 
   Dir.glob(glob_path)[0..1].each do |filename|
     fn = Pathname.new(filename).basename
