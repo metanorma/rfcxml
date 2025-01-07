@@ -58,7 +58,7 @@ module Rfcxml
       attribute :aside, Aside, collection: true
 
       xml do
-        root "dd"
+        root "dd", mixed: true
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

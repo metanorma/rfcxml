@@ -30,15 +30,15 @@ module Rfcxml
       xml do
         root "postal"
 
+        map_element "extaddr", to: :extaddr
+        map_element "street", to: :street
         map_element "city", to: :city
         map_element "cityarea", to: :cityarea
+        map_element "region", to: :region
         map_element "code", to: :code
         map_element "country", to: :country
-        map_element "extaddr", to: :extaddr
         map_element "pobox", to: :pobox
-        map_element "region", to: :region
         map_element "sortingcode", to: :sortingcode
-        map_element "street", to: :street
         map_element "postalLine", to: :postal_line
       end
     end
