@@ -40,18 +40,11 @@ module Rfcxml
         map_content to: :content
         map_attribute "anchor", to: :anchor
         map_attribute "pn", to: :pn
-        map_element "bcp14", to: :bcp14
-        map_element "br", to: :br
-        map_element "cref", to: :cref
-        map_element "em", to: :em
-        map_element "eref", to: :eref
-        map_element "iref", to: :iref
-        map_element "relref", to: :relref
-        map_element "strong", to: :strong
-        map_element "sub", to: :sub
-        map_element "sup", to: :sup
-        map_element "tt", to: :tt
-        map_element "xref", to: :xref
+
+        %w[bcp14 br cref em eref iref relref strong sub sup tt
+           xref].each do |element|
+          map_element element, to: element.to_sym
+        end
       end
     end
   end

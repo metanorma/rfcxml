@@ -60,10 +60,10 @@ module Rfcxml
         map_attribute "scripts", to: :scripts
         map_attribute "expiresDate", to: :expires_date
         map_attribute "lang", to: :lang, prefix: :xml
-        map_element "link", to: :link
-        map_element "front", to: :front
-        map_element "middle", to: :middle
-        map_element "back", to: :back
+
+        %w[link front middle back].each do |element|
+          map_element element, to: element.to_sym
+        end
       end
     end
   end
