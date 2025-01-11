@@ -44,13 +44,11 @@ module Rfcxml
         map_attribute "alt", to: :alt
         map_attribute "width", to: :width
         map_attribute "height", to: :height
-        map_element "name", to: :name
-        map_element "iref", to: :iref
-        map_element "preamble", to: :preamble
-        map_element "artset", to: :artset
-        map_element "artwork", to: :artwork
-        map_element "sourcecode", to: :sourcecode
-        map_element "postamble", to: :postamble
+
+        %w[name iref preamble artset artwork sourcecode
+           postamble].each do |element|
+          map_element element, to: element.to_sym
+        end
       end
     end
   end

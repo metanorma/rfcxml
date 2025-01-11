@@ -65,27 +65,11 @@ module Rfcxml
         map_attribute "pn", to: :pn
         map_attribute "cite", to: :cite
         map_attribute "quotedFrom", to: :quoted_from
-        map_element "artset", to: :artset
-        map_element "artwork", to: :artwork
-        map_element "dl", to: :dl
-        map_element "figure", to: :figure
-        map_element "ol", to: :ol
-        map_element "sourcecode", to: :sourcecode
-        map_element "t", to: :t
-        map_element "ul", to: :ul
-        map_element "bcp14", to: :bcp14
-        map_element "br", to: :br
-        map_element "cref", to: :cref
-        map_element "em", to: :em
-        map_element "eref", to: :eref
-        map_element "iref", to: :iref
-        map_element "relref", to: :relref
-        map_element "strong", to: :strong
-        map_element "sub", to: :sub
-        map_element "sup", to: :sup
-        map_element "tt", to: :tt
-        map_element "u", to: :u
-        map_element "xref", to: :xref
+
+        %w[artset artwork dl figure ol sourcecode t ul bcp14 br cref em eref
+           iref relref strong sub sup tt u xref].each do |element|
+          map_element element, to: element.to_sym
+        end
       end
     end
   end
