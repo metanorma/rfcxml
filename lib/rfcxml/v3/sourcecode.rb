@@ -20,8 +20,8 @@ module Rfcxml
         map_content to: :content
         map_attribute "anchor", to: :anchor
         map_attribute "pn", to: :pn
-        map_attribute "name", to: :name
-        map_attribute "type", to: :type
+        map_attribute "name", to: :name, value_map: { to: { empty: :empty } }
+        map_attribute "type", to: :type, value_map: { to: { empty: :empty } }
         map_attribute "markers", to: :markers
         map_attribute "src", to: :src
         map_attribute "originalSrc", to: :original_src
