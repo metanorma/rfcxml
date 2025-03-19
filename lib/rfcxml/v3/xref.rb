@@ -25,7 +25,7 @@ module Rfcxml
         map_attribute "target", to: :target
         map_attribute "pageno", to: :pageno
         map_attribute "format", to: :format
-        map_attribute "derivedContent", to: :derived_content
+        map_attribute "derivedContent", to: :derived_content, value_map: { to: { empty: :empty } }
         map_attribute "sectionFormat", to: :section_format
         map_attribute "section", to: :section
         map_attribute "relative", to: :relative
