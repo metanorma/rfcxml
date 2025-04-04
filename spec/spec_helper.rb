@@ -17,10 +17,8 @@ RSpec.configure do |config|
 end
 
 require "lutaml/model"
-require "lutaml/model/xml_adapter/nokogiri_adapter"
-require "lutaml/model/json_adapter/standard_json_adapter"
 
 Lutaml::Model::Config.configure do |config|
-  config.xml_adapter = Lutaml::Model::XmlAdapter::NokogiriAdapter
-  config.json_adapter = Lutaml::Model::JsonAdapter::StandardJsonAdapter
+  config.xml_adapter_type = :nokogiri
+  config.json_adapter_type = :standard
 end
