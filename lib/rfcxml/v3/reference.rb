@@ -2,12 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "annotation"
-require_relative "format"
-require_relative "front"
-require_relative "refcontent"
-require_relative "series_info"
-
 module Rfcxml
   module V3
     class Reference < Lutaml::Model::Serializable

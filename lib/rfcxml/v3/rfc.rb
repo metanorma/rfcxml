@@ -35,6 +35,8 @@ module Rfcxml
       attribute :front, Front
       attribute :middle, Middle
       attribute :back, Back
+      # Store namespace declarations (xmlns:*) for round-trip preservation
+      attribute :namespace_declarations, :hash, default: -> { {} }
 
       xml do
         root "rfc"
@@ -64,6 +66,41 @@ module Rfcxml
         %w[link front middle back].each do |element|
           map_element element, to: element.to_sym
         end
+      end
+
+      # Override from_xml to capture namespace declarations
+      def self.from_xml(data, options = {})
+        instance = super
+        return instance unless instance && data
+
+        instance.namespace_declarations = extract_namespaces(data)
+        instance
+      end
+
+      # Extract namespace declarations from XML document
+      def self.extract_namespaces(data)
+        doc = Nokogiri::XML(data)
+        return {} unless doc.root
+
+        doc.root.namespaces.to_h
+      end
+
+      # Override to_xml to restore namespace declarations
+      def to_xml(options = {})
+        xml = super
+        return xml unless namespace_declarations&.any?
+
+        add_namespace_declarations(xml, options[:declaration])
+      end
+
+      private
+
+      def add_namespace_declarations(xml, with_declaration)
+        doc = Nokogiri::XML(xml)
+        return xml unless doc.root
+
+        namespace_declarations.each { |prefix, uri| doc.root[prefix] = uri }
+        with_declaration ? doc.to_xml : doc.root.to_xml
       end
     end
   end

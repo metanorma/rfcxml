@@ -2,8 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "tr"
-
 module Rfcxml
   module V3
     class Tbody < Lutaml::Model::Serializable

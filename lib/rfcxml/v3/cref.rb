@@ -2,16 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "br"
-require_relative "em"
-require_relative "eref"
-require_relative "relref"
-require_relative "strong"
-require_relative "sub"
-require_relative "sup"
-require_relative "tt"
-require_relative "xref"
-
 module Rfcxml
   module V3
     class Cref < Lutaml::Model::Serializable

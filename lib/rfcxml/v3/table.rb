@@ -2,12 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "iref"
-require_relative "name"
-require_relative "tbody"
-require_relative "tfoot"
-require_relative "thead"
-
 module Rfcxml
   module V3
     class Table < Lutaml::Model::Serializable

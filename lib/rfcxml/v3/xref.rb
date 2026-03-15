@@ -2,8 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "xref_text"
-
 module Rfcxml
   module V3
     class Xref < Lutaml::Model::Serializable

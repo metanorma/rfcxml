@@ -2,19 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "bcp14"
-require_relative "br"
-require_relative "cref"
-require_relative "em"
-require_relative "eref"
-require_relative "iref"
-require_relative "relref"
-require_relative "strong"
-require_relative "sub"
-require_relative "sup"
-require_relative "tt"
-require_relative "xref"
-
 module Rfcxml
   module V3
     class Name < Lutaml::Model::Serializable

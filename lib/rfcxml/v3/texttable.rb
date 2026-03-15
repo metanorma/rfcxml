@@ -2,12 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "c"
-require_relative "name"
-require_relative "postamble"
-require_relative "preamble"
-require_relative "ttcol"
-
 module Rfcxml
   module V3
     class Texttable < Lutaml::Model::Serializable

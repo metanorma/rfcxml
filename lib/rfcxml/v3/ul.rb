@@ -4,8 +4,6 @@ require "lutaml/model"
 
 module Rfcxml
   module V3
-    class Li < Lutaml::Model::Serializable; end
-
     class Ul < Lutaml::Model::Serializable
       attribute :anchor, :string
       attribute :spacing, :string, default: -> { "normal" }

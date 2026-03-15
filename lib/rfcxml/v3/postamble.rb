@@ -2,12 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "cref"
-require_relative "eref"
-require_relative "iref"
-require_relative "spanx"
-require_relative "xref"
-
 module Rfcxml
   module V3
     class Postamble < Lutaml::Model::Serializable

@@ -2,18 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "abstract"
-require_relative "area"
-require_relative "author"
-require_relative "boilerplate"
-require_relative "date"
-require_relative "keyword"
-require_relative "note"
-require_relative "series_info"
-require_relative "title"
-require_relative "toc"
-require_relative "workgroup"
-
 module Rfcxml
   module V3
     class Front < Lutaml::Model::Serializable

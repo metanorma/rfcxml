@@ -2,14 +2,8 @@
 
 require "lutaml/model"
 
-require_relative "dd"
-require_relative "dt"
-
 module Rfcxml
   module V3
-    # class Dd < Lutaml::Model::Serializable; end
-    # class Dt < Lutaml::Model::Serializable; end
-
     class Dl < Lutaml::Model::Serializable
       attribute :anchor, :string
       attribute :spacing, :string, default: -> { "normal" }

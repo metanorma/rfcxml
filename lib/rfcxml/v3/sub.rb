@@ -2,30 +2,20 @@
 
 require "lutaml/model"
 
-require_relative "bcp14"
-require_relative "cref"
-require_relative "em"
-require_relative "eref"
-require_relative "iref"
-require_relative "relref"
-require_relative "strong"
-require_relative "tt"
-require_relative "xref"
-
 module Rfcxml
   module V3
     class Sub < Lutaml::Model::Serializable
       attribute :content, :string
       attribute :bcp14, Bcp14, collection: true
       attribute :cref, Cref, collection: true
-      attribute :em, Em, collection: true
+      attribute :em, "Rfcxml::V3::Em", collection: true
       attribute :eref, Eref, collection: true
       attribute :iref, Iref, collection: true
       attribute :relref, Relref, collection: true
-      attribute :strong, Strong, collection: true
+      attribute :strong, "Rfcxml::V3::Strong", collection: true
       attribute :sub, Sub, collection: true
-      attribute :sup, Sup, collection: true
-      attribute :tt, Tt, collection: true
+      attribute :sup, "Rfcxml::V3::Sup", collection: true
+      attribute :tt, "Rfcxml::V3::Tt", collection: true
       attribute :xref, Xref, collection: true
 
       xml do

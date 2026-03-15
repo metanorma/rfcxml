@@ -2,8 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "li"
-
 module Rfcxml
   module V3
     class Ol < Lutaml::Model::Serializable

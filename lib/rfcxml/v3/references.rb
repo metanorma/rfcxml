@@ -2,10 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "name"
-require_relative "reference"
-require_relative "referencegroup"
-
 module Rfcxml
   module V3
     class References < Lutaml::Model::Serializable

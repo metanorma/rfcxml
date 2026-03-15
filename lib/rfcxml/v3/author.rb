@@ -2,9 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "address"
-require_relative "organization"
-
 module Rfcxml
   module V3
     class Author < Lutaml::Model::Serializable

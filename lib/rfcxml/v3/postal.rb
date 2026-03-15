@@ -2,17 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "city"
-require_relative "cityarea"
-require_relative "code"
-require_relative "country"
-require_relative "extaddr"
-require_relative "pobox"
-require_relative "postal_line"
-require_relative "region"
-require_relative "sortingcode"
-require_relative "street"
-
 module Rfcxml
   module V3
     class Postal < Lutaml::Model::Serializable

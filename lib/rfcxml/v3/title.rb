@@ -2,8 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "br"
-
 module Rfcxml
   module V3
     class Title < Lutaml::Model::Serializable

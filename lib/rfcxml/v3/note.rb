@@ -2,12 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "dl"
-require_relative "name"
-require_relative "ol"
-require_relative "text"
-require_relative "ul"
-
 module Rfcxml
   module V3
     class Note < Lutaml::Model::Serializable
