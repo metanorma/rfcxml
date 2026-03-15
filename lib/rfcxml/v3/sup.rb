@@ -2,8 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "sub"
-
 module Rfcxml
   module V3
     class Sup < Sub

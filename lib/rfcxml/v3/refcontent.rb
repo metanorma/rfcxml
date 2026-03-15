@@ -2,9 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "bcp14"
-require_relative "xref_text"
-
 module Rfcxml
   module V3
     class Refcontent < Lutaml::Model::Serializable

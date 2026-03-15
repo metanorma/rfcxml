@@ -2,14 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "artset"
-require_relative "artwork"
-require_relative "iref"
-require_relative "name"
-require_relative "postamble"
-require_relative "preamble"
-require_relative "sourcecode"
-
 module Rfcxml
   module V3
     class Figure < Lutaml::Model::Serializable

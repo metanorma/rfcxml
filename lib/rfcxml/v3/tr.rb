@@ -2,9 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "td"
-require_relative "th"
-
 module Rfcxml
   module V3
     class Tr < Lutaml::Model::Serializable

@@ -10,8 +10,7 @@ end
 module Rfcxml
   class Error < StandardError; end
 
-  # Your code goes here...
+  autoload :Version, "#{__dir__}/rfcxml/version"
 end
 
-require_relative "rfcxml/version"
 require_relative "rfcxml/v3"

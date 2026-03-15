@@ -2,8 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "text"
-
 module Rfcxml
   module V3
     class List < Lutaml::Model::Serializable
@@ -11,7 +9,7 @@ module Rfcxml
       attribute :hang_indent, :string
       attribute :counter, :string
       attribute :pn, :string
-      attribute :text, Text, collection: true
+      attribute :text, "Rfcxml::V3::Text", collection: true
 
       xml do
         root "list"

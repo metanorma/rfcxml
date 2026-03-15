@@ -2,8 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "section"
-
 module Rfcxml
   module V3
     class Boilerplate < Lutaml::Model::Serializable

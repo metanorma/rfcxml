@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require "lutaml/model"
-require_relative "br"
-require_relative "sup"
-
 module Rfcxml
   module V3
     class Strong < Lutaml::Model::Serializable
@@ -11,13 +8,13 @@ module Rfcxml
       attribute :bcp14, Bcp14, collection: true
       attribute :br, Br, collection: true
       attribute :cref, Cref, collection: true
-      attribute :em, Em, collection: true
+      attribute :em, "Rfcxml::V3::Em", collection: true
       attribute :eref, Eref, collection: true
       attribute :iref, Iref, collection: true
       attribute :relref, Relref, collection: true
-      attribute :sub, Sub, collection: true
-      attribute :sup, Sup, collection: true
-      attribute :tt, Tt, collection: true
+      attribute :sub, "Rfcxml::V3::Sub", collection: true
+      attribute :sup, "Rfcxml::V3::Sup", collection: true
+      attribute :tt, "Rfcxml::V3::Tt", collection: true
       attribute :xref, Xref, collection: true
 
       xml do

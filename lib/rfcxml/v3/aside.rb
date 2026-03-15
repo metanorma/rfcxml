@@ -2,17 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "artset"
-require_relative "artwork"
-require_relative "blockquote"
-require_relative "dl"
-require_relative "figure"
-require_relative "iref"
-require_relative "ol"
-require_relative "text"
-require_relative "table"
-require_relative "ul"
-
 module Rfcxml
   module V3
     class Aside < Lutaml::Model::Serializable

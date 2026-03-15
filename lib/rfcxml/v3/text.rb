@@ -2,27 +2,8 @@
 
 require "lutaml/model"
 
-require_relative "bcp14"
-require_relative "br"
-require_relative "contact"
-require_relative "cref"
-require_relative "em"
-require_relative "eref"
-require_relative "iref"
-require_relative "relref"
-require_relative "spanx"
-require_relative "strong"
-require_relative "sub"
-require_relative "sup"
-require_relative "tt"
-require_relative "u"
-require_relative "vspace"
-require_relative "xref"
-
 module Rfcxml
   module V3
-    class List < Lutaml::Model::Serializable; end
-
     class Text < Lutaml::Model::Serializable
       attribute :content, :string
       attribute :anchor, :string

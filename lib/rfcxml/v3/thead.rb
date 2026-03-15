@@ -2,8 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "tr"
-
 module Rfcxml
   module V3
     class Thead < Lutaml::Model::Serializable

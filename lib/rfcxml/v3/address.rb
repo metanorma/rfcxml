@@ -2,12 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "email"
-require_relative "facsimile"
-require_relative "phone"
-require_relative "postal"
-require_relative "uri"
-
 module Rfcxml
   module V3
     class Address < Lutaml::Model::Serializable

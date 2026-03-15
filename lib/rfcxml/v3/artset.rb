@@ -2,8 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "artwork"
-
 module Rfcxml
   module V3
     class Artset < Lutaml::Model::Serializable

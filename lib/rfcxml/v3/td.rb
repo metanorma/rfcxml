@@ -2,28 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "artset"
-require_relative "artwork"
-require_relative "bcp14"
-require_relative "br"
-require_relative "cref"
-require_relative "dl"
-require_relative "em"
-require_relative "eref"
-require_relative "figure"
-require_relative "iref"
-require_relative "ol"
-require_relative "relref"
-require_relative "sourcecode"
-require_relative "strong"
-require_relative "sub"
-require_relative "sup"
-require_relative "text"
-require_relative "tt"
-require_relative "u"
-require_relative "ul"
-require_relative "xref"
-
 module Rfcxml
   module V3
     class Td < Lutaml::Model::Serializable

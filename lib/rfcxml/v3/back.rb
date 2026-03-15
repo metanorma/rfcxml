@@ -2,10 +2,6 @@
 
 require "lutaml/model"
 
-require_relative "displayreference"
-require_relative "references"
-require_relative "section"
-
 module Rfcxml
   module V3
     class Back < Lutaml::Model::Serializable
