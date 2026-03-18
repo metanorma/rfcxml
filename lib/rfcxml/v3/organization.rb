@@ -9,7 +9,9 @@ module Rfcxml
       attribute :abbrev, :string
       attribute :ascii, :string
       attribute :ascii_abbrev, :string
-      attribute :show_on_front_page, :string, default: -> { "true" }
+      attribute :show_on_front_page, :string,
+                values: %w[true false],
+                default: -> { "true" }
 
       xml do
         root "organization"

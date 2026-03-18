@@ -31,7 +31,7 @@ RSpec.describe "RFC XML Document Creation" do
         front: Rfcxml::V3::Front.new(
           title: Rfcxml::V3::Title.new(
             content: "Example Protocol for Testing",
-            abbrev: "Example Protocol"
+            abbrev: "Example Protocol",
           ),
           author: [
             Rfcxml::V3::Author.new(
@@ -41,25 +41,25 @@ RSpec.describe "RFC XML Document Creation" do
               role: "editor",
               organization: Rfcxml::V3::Organization.new(content: "Example Corp"),
               address: Rfcxml::V3::Address.new(
-                email: Rfcxml::V3::Email.new(content: "jane@example.com")
-              )
-            )
+                email: Rfcxml::V3::Email.new(content: "jane@example.com"),
+              ),
+            ),
           ],
           date: Rfcxml::V3::Date.new(
             year: "2025",
-            month: "January"
+            month: "January",
           ),
           keyword: [
             Rfcxml::V3::Keyword.new(content: "protocol"),
-            Rfcxml::V3::Keyword.new(content: "testing")
+            Rfcxml::V3::Keyword.new(content: "testing"),
           ],
           abstract: Rfcxml::V3::Abstract.new(
             t: [
               Rfcxml::V3::Text.new(
-                content: "This document describes an example protocol for testing purposes."
-              )
-            ]
-          )
+                content: "This document describes an example protocol for testing purposes.",
+              ),
+            ],
+          ),
         ),
 
         # Middle section with content
@@ -70,23 +70,23 @@ RSpec.describe "RFC XML Document Creation" do
               name: Rfcxml::V3::Name.new(content: "Introduction"),
               t: [
                 Rfcxml::V3::Text.new(
-                  content: "This is an example Internet-Draft for demonstration purposes."
+                  content: "This is an example Internet-Draft for demonstration purposes.",
                 ),
                 Rfcxml::V3::Text.new(
-                  content: "Internet-Drafts are working documents of the IETF."
-                )
-              ]
+                  content: "Internet-Drafts are working documents of the IETF.",
+                ),
+              ],
             ),
             Rfcxml::V3::Section.new(
               anchor: "requirements",
               name: Rfcxml::V3::Name.new(content: "Requirements"),
               t: [
                 Rfcxml::V3::Text.new(
-                  content: "The key words MUST, MUST NOT, REQUIRED, etc. are to be interpreted as described in RFC 2119."
-                )
-              ]
-            )
-          ]
+                  content: "The key words MUST, MUST NOT, REQUIRED, etc. are to be interpreted as described in RFC 2119.",
+                ),
+              ],
+            ),
+          ],
         ),
 
         # Back section with references
@@ -103,19 +103,19 @@ RSpec.describe "RFC XML Document Creation" do
                     author: [
                       Rfcxml::V3::Author.new(
                         fullname: "S. Bradner",
-                        surname: "Bradner"
-                      )
+                        surname: "Bradner",
+                      ),
                     ],
                     date: Rfcxml::V3::Date.new(year: "1997", month: "March"),
                     series_info: [
-                      Rfcxml::V3::SeriesInfo.new(name: "RFC", value: "2119")
-                    ]
-                  )
-                )
-              ]
-            )
-          ]
-        )
+                      Rfcxml::V3::SeriesInfo.new(name: "RFC", value: "2119"),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       )
     end
 
@@ -127,7 +127,8 @@ RSpec.describe "RFC XML Document Creation" do
     end
 
     it "serializes Internet-Draft to valid XML" do
-      xml = internet_draft.to_xml(pretty: true, declaration: true, encoding: "utf-8")
+      xml = internet_draft.to_xml(pretty: true, declaration: true,
+                                  encoding: "utf-8")
 
       # Verify XML structure
       expect(xml).to include('<?xml version="1.0" encoding="utf-8"?>')
@@ -142,7 +143,8 @@ RSpec.describe "RFC XML Document Creation" do
     end
 
     it "round-trips Internet-Draft preserving structure" do
-      xml = internet_draft.to_xml(pretty: true, declaration: true, encoding: "utf-8")
+      xml = internet_draft.to_xml(pretty: true, declaration: true,
+                                  encoding: "utf-8")
 
       # Re-parse
       reparsed = Rfcxml::V3::Rfc.from_xml(xml)
@@ -189,14 +191,14 @@ RSpec.describe "RFC XML Document Creation" do
         front: Rfcxml::V3::Front.new(
           title: Rfcxml::V3::Title.new(
             content: "A Standard Protocol for Example Purposes",
-            abbrev: "Example Standard"
+            abbrev: "Example Standard",
           ),
           series_info: [
             Rfcxml::V3::SeriesInfo.new(
               name: "RFC",
               value: "9999",
-              stream: "IETF"
-            )
+              stream: "IETF",
+            ),
           ],
           author: [
             Rfcxml::V3::Author.new(
@@ -205,8 +207,8 @@ RSpec.describe "RFC XML Document Creation" do
               surname: "Smith",
               organization: Rfcxml::V3::Organization.new(content: "Standards Org"),
               address: Rfcxml::V3::Address.new(
-                email: Rfcxml::V3::Email.new(content: "john@standards.org")
-              )
+                email: Rfcxml::V3::Email.new(content: "john@standards.org"),
+              ),
             ),
             Rfcxml::V3::Author.new(
               fullname: "Alice Jones",
@@ -214,33 +216,33 @@ RSpec.describe "RFC XML Document Creation" do
               surname: "Jones",
               organization: Rfcxml::V3::Organization.new(content: "Tech Company"),
               address: Rfcxml::V3::Address.new(
-                email: Rfcxml::V3::Email.new(content: "alice@tech.com")
-              )
-            )
+                email: Rfcxml::V3::Email.new(content: "alice@tech.com"),
+              ),
+            ),
           ],
           date: Rfcxml::V3::Date.new(
             year: "2025",
-            month: "March"
+            month: "March",
           ),
           area: [
-            Rfcxml::V3::Area.new(content: "Applications")
+            Rfcxml::V3::Area.new(content: "Applications"),
           ],
           workgroup: [
-            Rfcxml::V3::Workgroup.new(content: "Example Working Group")
+            Rfcxml::V3::Workgroup.new(content: "Example Working Group"),
           ],
           keyword: [
             Rfcxml::V3::Keyword.new(content: "standard"),
             Rfcxml::V3::Keyword.new(content: "protocol"),
-            Rfcxml::V3::Keyword.new(content: "example")
+            Rfcxml::V3::Keyword.new(content: "example"),
           ],
           abstract: Rfcxml::V3::Abstract.new(
             t: [
               Rfcxml::V3::Text.new(
                 content: "This document specifies a standard protocol for example purposes. " \
-                         "It obsoletes RFC 9998 and updates RFC 9997 and RFC 9996."
-              )
-            ]
-          )
+                         "It obsoletes RFC 9998 and updates RFC 9997 and RFC 9996.",
+              ),
+            ],
+          ),
         ),
 
         # Middle section
@@ -252,9 +254,9 @@ RSpec.describe "RFC XML Document Creation" do
               name: Rfcxml::V3::Name.new(content: "Overview"),
               t: [
                 Rfcxml::V3::Text.new(
-                  content: "This document defines a standard protocol."
-                )
-              ]
+                  content: "This document defines a standard protocol.",
+                ),
+              ],
             ),
             Rfcxml::V3::Section.new(
               anchor: "protocol",
@@ -262,8 +264,8 @@ RSpec.describe "RFC XML Document Creation" do
               name: Rfcxml::V3::Name.new(content: "Protocol Definition"),
               t: [
                 Rfcxml::V3::Text.new(
-                  content: "The protocol operates as follows..."
-                )
+                  content: "The protocol operates as follows...",
+                ),
               ],
               section: [
                 Rfcxml::V3::Section.new(
@@ -272,13 +274,13 @@ RSpec.describe "RFC XML Document Creation" do
                   name: Rfcxml::V3::Name.new(content: "Messages"),
                   t: [
                     Rfcxml::V3::Text.new(
-                      content: "All messages MUST be formatted as specified."
-                    )
-                  ]
-                )
-              ]
-            )
-          ]
+                      content: "All messages MUST be formatted as specified.",
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
 
         # Back section
@@ -292,18 +294,19 @@ RSpec.describe "RFC XML Document Creation" do
                   anchor: "RFC2119",
                   front: Rfcxml::V3::Front.new(
                     title: Rfcxml::V3::Title.new(
-                      content: "Key words for use in RFCs to Indicate Requirement Levels"
+                      content: "Key words for use in RFCs to Indicate Requirement Levels",
                     ),
                     author: [
-                      Rfcxml::V3::Author.new(fullname: "S. Bradner", surname: "Bradner")
+                      Rfcxml::V3::Author.new(fullname: "S. Bradner",
+                                             surname: "Bradner"),
                     ],
                     date: Rfcxml::V3::Date.new(year: "1997", month: "March"),
                     series_info: [
-                      Rfcxml::V3::SeriesInfo.new(name: "RFC", value: "2119")
-                    ]
-                  )
-                )
-              ]
+                      Rfcxml::V3::SeriesInfo.new(name: "RFC", value: "2119"),
+                    ],
+                  ),
+                ),
+              ],
             ),
             Rfcxml::V3::References.new(
               anchor: "informative-references",
@@ -314,18 +317,18 @@ RSpec.describe "RFC XML Document Creation" do
                   front: Rfcxml::V3::Front.new(
                     title: Rfcxml::V3::Title.new(content: "Previous Related Work"),
                     author: [
-                      Rfcxml::V3::Author.new(fullname: "A. Author")
+                      Rfcxml::V3::Author.new(fullname: "A. Author"),
                     ],
                     date: Rfcxml::V3::Date.new(year: "2020"),
                     series_info: [
-                      Rfcxml::V3::SeriesInfo.new(name: "RFC", value: "9997")
-                    ]
-                  )
-                )
-              ]
-            )
-          ]
-        )
+                      Rfcxml::V3::SeriesInfo.new(name: "RFC", value: "9997"),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       )
     end
 
@@ -338,7 +341,8 @@ RSpec.describe "RFC XML Document Creation" do
     end
 
     it "serializes RFC to valid XML" do
-      xml = published_rfc.to_xml(pretty: true, declaration: true, encoding: "utf-8")
+      xml = published_rfc.to_xml(pretty: true, declaration: true,
+                                 encoding: "utf-8")
 
       # Verify XML structure
       expect(xml).to include('<?xml version="1.0" encoding="utf-8"?>')
@@ -353,7 +357,8 @@ RSpec.describe "RFC XML Document Creation" do
     end
 
     it "round-trips RFC preserving structure" do
-      xml = published_rfc.to_xml(pretty: true, declaration: true, encoding: "utf-8")
+      xml = published_rfc.to_xml(pretty: true, declaration: true,
+                                 encoding: "utf-8")
 
       # Re-parse
       reparsed = Rfcxml::V3::Rfc.from_xml(xml)
@@ -384,20 +389,20 @@ RSpec.describe "RFC XML Document Creation" do
         front: Rfcxml::V3::Front.new(
           title: Rfcxml::V3::Title.new(content: "Test Document"),
           author: [
-            Rfcxml::V3::Author.new(fullname: "Test Author")
+            Rfcxml::V3::Author.new(fullname: "Test Author"),
           ],
-          date: Rfcxml::V3::Date.new(year: "2025")
+          date: Rfcxml::V3::Date.new(year: "2025"),
         ),
         middle: Rfcxml::V3::Middle.new(
           section: [
             Rfcxml::V3::Section.new(
               name: Rfcxml::V3::Name.new(content: "Test Section"),
               t: [
-                Rfcxml::V3::Text.new(content: "Test content.")
-              ]
-            )
-          ]
-        )
+                Rfcxml::V3::Text.new(content: "Test content."),
+              ],
+            ),
+          ],
+        ),
       )
 
       # Serialize
@@ -407,7 +412,8 @@ RSpec.describe "RFC XML Document Creation" do
       reparsed = Rfcxml::V3::Rfc.from_xml(xml_out)
 
       # Serialize again
-      xml_round_trip = reparsed.to_xml(pretty: true, declaration: true, encoding: "utf-8")
+      xml_round_trip = reparsed.to_xml(pretty: true, declaration: true,
+                                       encoding: "utf-8")
 
       # Use Canon to verify semantic equivalence
       expect(xml_round_trip).to be_xml_equivalent_to(xml_out)
@@ -423,20 +429,20 @@ RSpec.describe "RFC XML Document Creation" do
         front: Rfcxml::V3::Front.new(
           title: Rfcxml::V3::Title.new(content: "Informational RFC"),
           author: [
-            Rfcxml::V3::Author.new(fullname: "RFC Author")
+            Rfcxml::V3::Author.new(fullname: "RFC Author"),
           ],
-          date: Rfcxml::V3::Date.new(year: "2025")
+          date: Rfcxml::V3::Date.new(year: "2025"),
         ),
         middle: Rfcxml::V3::Middle.new(
           section: [
             Rfcxml::V3::Section.new(
               name: Rfcxml::V3::Name.new(content: "Overview"),
               t: [
-                Rfcxml::V3::Text.new(content: "This is an informational RFC.")
-              ]
-            )
-          ]
-        )
+                Rfcxml::V3::Text.new(content: "This is an informational RFC."),
+              ],
+            ),
+          ],
+        ),
       )
 
       # Serialize
@@ -446,7 +452,8 @@ RSpec.describe "RFC XML Document Creation" do
       reparsed = Rfcxml::V3::Rfc.from_xml(xml_out)
 
       # Serialize again
-      xml_round_trip = reparsed.to_xml(pretty: true, declaration: true, encoding: "utf-8")
+      xml_round_trip = reparsed.to_xml(pretty: true, declaration: true,
+                                       encoding: "utf-8")
 
       # Use Canon to verify semantic equivalence
       expect(xml_round_trip).to be_xml_equivalent_to(xml_out)

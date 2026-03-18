@@ -8,9 +8,15 @@ module Rfcxml
       attribute :anchor, :string
       attribute :pn, :string
       attribute :title, :string
-      attribute :numbered, :string, default: -> { "true" }
-      attribute :toc, :string, default: -> { "default" }
-      attribute :remove_in_rfc, :string, default: -> { "false" }
+      attribute :numbered, :string,
+                values: %w[true false],
+                default: -> { "true" }
+      attribute :toc, :string,
+                values: %w[include exclude default],
+                default: -> { "default" }
+      attribute :remove_in_rfc, :string,
+                values: %w[true false],
+                default: -> { "false" }
       attribute :name, Name
       attribute :artset, Artset, collection: true
       attribute :artwork, Artwork, collection: true

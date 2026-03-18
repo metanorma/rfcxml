@@ -8,10 +8,14 @@ module Rfcxml
       attribute :anchor, :string
       attribute :pn, :string
       attribute :title, :string, default: -> { "" }
-      attribute :suppress_title, :string, default: -> { "false" }
+      attribute :suppress_title, :string,
+                values: %w[true false],
+                default: -> { "false" }
       attribute :src, :string
       attribute :original_src, :string
-      attribute :align, :string, default: -> { "left" }
+      attribute :align, :string,
+                values: %w[left center right],
+                default: -> { "left" }
       attribute :alt, :string, default: -> { "" }
       attribute :width, :string, default: -> { "" }
       attribute :height, :string, default: -> { "" }

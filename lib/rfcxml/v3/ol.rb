@@ -9,7 +9,9 @@ module Rfcxml
       attribute :type, :string, default: -> { "1" }
       attribute :start, :string, default: -> { "1" }
       attribute :group, :string
-      attribute :spacing, :string, default: -> { "normal" }
+      attribute :spacing, :string,
+                values: %w[normal compact],
+                default: -> { "normal" }
       attribute :indent, :string, default: -> { "adaptive" }
       attribute :pn, :string
       attribute :li, Li, collection: true
