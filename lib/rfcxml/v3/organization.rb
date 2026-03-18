@@ -14,12 +14,15 @@ module Rfcxml
                 default: -> { "true" }
 
       xml do
-        root "organization"
+        element "organization"
+        mixed_content
 
         map_content to: :content
-        map_attribute "abbrev", to: :abbrev
-        map_attribute "ascii", to: :ascii
-        map_attribute "asciiAbbrev", to: :ascii_abbrev
+        map_attribute "abbrev", to: :abbrev,
+                                value_map: { to: { empty: :empty } }
+        map_attribute "ascii", to: :ascii, value_map: { to: { empty: :empty } }
+        map_attribute "asciiAbbrev", to: :ascii_abbrev,
+                                     value_map: { to: { empty: :empty } }
         map_attribute "showOnFrontPage", to: :show_on_front_page
       end
     end

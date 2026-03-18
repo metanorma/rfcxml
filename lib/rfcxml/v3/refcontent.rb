@@ -10,7 +10,8 @@ module Rfcxml
       include XrefText
 
       xml do
-        root "refcontent"
+        element "refcontent"
+        ordered
 
         map_content to: :content
         map_element "bcp14", to: :bcp14

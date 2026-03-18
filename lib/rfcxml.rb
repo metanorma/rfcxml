@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "lutaml/model"
+require "lutaml/xml"
 
 Lutaml::Model::Config.configure do |config|
   config.xml_adapter_type = :nokogiri

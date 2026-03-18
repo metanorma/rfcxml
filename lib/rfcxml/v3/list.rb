@@ -12,7 +12,8 @@ module Rfcxml
       attribute :text, "Rfcxml::V3::Text", collection: true
 
       xml do
-        root "list"
+        element "list"
+        ordered
 
         map_attribute "style", to: :style
         map_attribute "hangIndent", to: :hang_indent

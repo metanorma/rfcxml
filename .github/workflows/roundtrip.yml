@@ -1,0 +1,79 @@
+# GitHub Actions workflow for RFC XML round-trip testing
+# Tests all RFC XML v3 files from rfc-editor.org
+#
+# Issue: https://github.com/metanorma/rfcxml/issues/4
+
+name: RFC Round-Trip Tests
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+  # Weekly run to catch new RFCs (Sundays at 00:00 UTC)
+  schedule:
+    - cron: '0 0 * * 0'
+  # Also run on pushes to main for early detection of issues
+  push:
+    branches: [ main ]
+    paths:
+      - 'lib/**'
+      - 'spec/**'
+      - 'script/roundtrip_all_rfcs.rb'
+  pull_request:
+    paths:
+      - 'lib/**'
+      - 'spec/**'
+      - 'script/roundtrip_all_rfcs.rb'
+
+permissions:
+  contents: read
+
+jobs:
+  roundtrip:
+    name: Test RFC XML Round-Trips
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Download RFC XML files
+        run: |
+          mkdir -p rfc-xml-source
+          echo "Downloading RFC XML tarball..."
+          curl -L -o xmlsource.tar.gz "https://www.rfc-editor.org/in-notes/tar/xmlsource-all.tar.gz"
+          echo "Extracting..."
+          tar -xzf xmlsource.tar.gz -C rfc-xml-source
+          # The tarball extracts to a subdirectory, find it
+          XML_DIR=$(find rfc-xml-source -name "*.xml" -type f | head -1 | xargs dirname)
+          echo "XML_DIR=$XML_DIR" >> $GITHUB_ENV
+          FILE_COUNT=$(find "$XML_DIR" -name "*.xml" -type f | wc -l)
+          echo "Found $FILE_COUNT XML files in $XML_DIR"
+
+      - name: Run round-trip tests
+        run: |
+          echo "Testing all RFC XML files..."
+          ruby script/roundtrip_all_rfcs.rb "$XML_DIR"
+        continue-on-error: true
+        id: roundtrip
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: roundtrip-results
+          path: |
+            *.log
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Check results
+        if: steps.roundtrip.outcome == 'failure'
+        run: |
+          echo "::error::Some RFC XML files failed round-trip testing"
+          exit 1

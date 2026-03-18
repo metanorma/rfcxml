@@ -6,7 +6,7 @@ module Rfcxml
   module V3
     class Texttable < Lutaml::Model::Serializable
       attribute :anchor, :string
-      attribute :title, :string, default: -> { "" }
+      attribute :title, :string
       attribute :suppress_title, :string,
                 values: %w[true false],
                 default: -> { "false" }
@@ -23,10 +23,10 @@ module Rfcxml
       attribute :postamble, Postamble
 
       xml do
-        root "texttable"
+        element "texttable"
 
         map_attribute "anchor", to: :anchor
-        map_attribute "title", to: :title
+        map_attribute "title", to: :title, value_map: { to: { empty: :empty } }
         map_attribute "suppress-title", to: :suppress_title
         map_attribute "align", to: :align
         map_attribute "style", to: :style

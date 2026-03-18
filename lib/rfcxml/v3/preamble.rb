@@ -21,7 +21,8 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "preamble"
+        element "preamble"
+        ordered
 
         map_content to: :content
         map_element "bcp14", to: :bcp14

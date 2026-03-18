@@ -14,10 +14,10 @@ module Rfcxml
                 values: %w[IETF IAB IRTF independent editorial]
 
       xml do
-        root "seriesInfo"
+        element "seriesInfo"
 
-        map_attribute "name", to: :name
-        map_attribute "value", to: :value
+        map_attribute "name", to: :name, value_map: { to: { empty: :empty } }
+        map_attribute "value", to: :value, value_map: { to: { empty: :empty } }
         map_attribute "asciiName", to: :ascii_name
         map_attribute "asciiValue", to: :ascii_value
         map_attribute "status", to: :status

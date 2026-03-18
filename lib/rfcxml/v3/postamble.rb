@@ -13,7 +13,8 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "postamble"
+        element "postamble"
+        ordered
 
         map_content to: :content
         map_element "cref", to: :cref

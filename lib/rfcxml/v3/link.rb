@@ -9,7 +9,7 @@ module Rfcxml
       attribute :rel, :string
 
       xml do
-        root "link"
+        element "link"
 
         map_attribute "href", to: :href
         map_attribute "rel", to: :rel

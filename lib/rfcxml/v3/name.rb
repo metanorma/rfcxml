@@ -21,7 +21,8 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "name"
+        element "name"
+        mixed_content
 
         map_content to: :content
         map_attribute "slugifiedName", to: :slugified_name

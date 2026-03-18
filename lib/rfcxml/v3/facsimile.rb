@@ -8,7 +8,7 @@ module Rfcxml
       attribute :content, :string
 
       xml do
-        root "facsimile"
+        element "facsimile"
 
         map_content to: :content
       end

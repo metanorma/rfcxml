@@ -6,7 +6,7 @@ module Rfcxml
   module V3
     class Br < Lutaml::Model::Serializable
       xml do
-        root "br"
+        element "br"
       end
     end
   end

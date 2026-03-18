@@ -15,7 +15,7 @@ module Rfcxml
       attribute :tfoot, Tfoot
 
       xml do
-        root "table"
+        element "table"
 
         map_attribute "align", to: :align
         map_attribute "anchor", to: :anchor

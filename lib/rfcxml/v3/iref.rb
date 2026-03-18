@@ -6,15 +6,16 @@ module Rfcxml
   module V3
     class Iref < Lutaml::Model::Serializable
       attribute :item, :string
-      attribute :subitem, :string, default: -> { "" }
+      attribute :subitem, :string
       attribute :primary, :string, default: -> { "false" }
       attribute :pn, :string
 
       xml do
-        root "iref"
+        element "iref"
 
         map_attribute "item", to: :item
-        map_attribute "subitem", to: :subitem
+        map_attribute "subitem", to: :subitem,
+                                 value_map: { to: { empty: :empty } }
         map_attribute "primary", to: :primary
         map_attribute "pn", to: :pn
       end

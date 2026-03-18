@@ -5,7 +5,7 @@ module Rfcxml
   module V3
     class Th < Td
       xml do
-        root "th"
+        element "th"
       end
     end
   end

@@ -17,16 +17,23 @@ module Rfcxml
       attribute :address, Address
 
       xml do
-        root "author"
+        element "author"
+        ordered
 
         map_attribute "anchor", to: :anchor
-        map_attribute "initials", to: :initials
-        map_attribute "asciiInitials", to: :ascii_initials
-        map_attribute "surname", to: :surname
-        map_attribute "asciiSurname", to: :ascii_surname
-        map_attribute "fullname", to: :fullname
-        map_attribute "role", to: :role
-        map_attribute "asciiFullname", to: :ascii_fullname
+        map_attribute "initials", to: :initials,
+                                  value_map: { to: { empty: :empty } }
+        map_attribute "asciiInitials", to: :ascii_initials,
+                                       value_map: { to: { empty: :empty } }
+        map_attribute "surname", to: :surname,
+                                 value_map: { to: { empty: :empty } }
+        map_attribute "asciiSurname", to: :ascii_surname,
+                                      value_map: { to: { empty: :empty } }
+        map_attribute "fullname", to: :fullname,
+                                  value_map: { to: { empty: :empty } }
+        map_attribute "role", to: :role, value_map: { to: { empty: :empty } }
+        map_attribute "asciiFullname", to: :ascii_fullname,
+                                       value_map: { to: { empty: :empty } }
         map_element "organization", to: :organization
         map_element "address", to: :address
       end

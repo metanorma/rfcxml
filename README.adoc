@@ -1,6 +1,7 @@
 = RFC XML Ruby library
 
 The `rfcxml` library is a parser and generator for RFC XML v3 documents.
+
 It provides bidirectional XML serialization using the lutaml-model framework,
 enabling perfect round-trips with namespace preservation.
 
@@ -292,8 +293,11 @@ xml = rfc.to_xml(
 
 == Enumeration Validation
 
-The library provides built-in validation for all RFC XML v3 enumeration attributes.
-These are defined in the v3.rnc schema and implemented using lutaml-model's `values:` constraint.
+The library provides built-in validation for all RFC XML v3 enumeration
+attributes.
+
+These are defined in the v3.rnc schema and implemented using lutaml-model's
+`values:` constraint.
 
 === Core Document Attributes
 
@@ -351,6 +355,72 @@ This runs tests + linting. To run tests only:
 ----
 $ bundle exec rake spec
 ----
+
+=== Round-Trip Testing
+
+The library includes comprehensive round-trip tests that verify XML parsing and
+serialization preserve all document structure. These tests use the
+https://github.com/lutaml/canon[Canon] gem for semantic XML comparison.
+
+==== Downloading RFC XML Fixtures
+
+To run round-trip tests, you need to download RFC XML fixtures from
+rfc-editor.org:
+
+[source]
+----
+$ bundle exec rake rfc:download
+----
+
+This downloads and extracts RFC XML files to `spec/fixtures/xmlsource/`. The
+download is automatically excluded from version control via `.gitignore`.
+
+To re-download fresh fixtures:
+
+[source]
+----
+$ bundle exec rake rfc:redownload
+----
+
+To clean downloaded fixtures:
+
+[source]
+----
+$ bundle exec rake rfc:clean
+----
+
+==== Running Round-Trip Tests
+
+Run round-trip tests for all downloaded RFC XML files:
+
+[source]
+----
+$ bundle exec ruby scripts/roundtrip_test.rb
+----
+
+The test script will:
+
+1. Parse each RFC XML file using `Rfcxml::V3::Rfc.from_xml`
+2. Serialize back to XML using `to_xml`
+3. Compare original and serialized XML using Canon with `spec_friendly` profile
+4. Report pass/fail statistics
+
+Run round-trip tests for specific files:
+
+[source]
+----
+$ bundle exec ruby scripts/roundtrip_test.rb spec/fixtures/xmlsource/rfc8650.xml
+$ bundle exec ruby scripts/roundtrip_test.rb spec/fixtures/xmlsource/rfc8650.xml spec/fixtures/xmlsource/rfc8651.xml
+----
+
+Run round-trip tests with custom thread count:
+
+[source]
+----
+$ bundle exec ruby scripts/roundtrip_test.rb -- --threads 4
+----
+
+Output is saved to `tmp/roundtrip-results-{timestamp}/` with detailed failure reports.
 
 == Architecture
 

@@ -35,7 +35,8 @@ module Rfcxml
       attribute :derived_counter, :string
 
       xml do
-        root "li", mixed: true
+        element "li"
+        mixed_content
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

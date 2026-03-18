@@ -20,7 +20,7 @@ module Rfcxml
       attribute :li, Li, collection: true
 
       xml do
-        root "ul"
+        element "ul"
 
         map_attribute "anchor", to: :anchor
         map_attribute "spacing", to: :spacing

@@ -11,12 +11,12 @@ module Rfcxml
       attribute :year, :string
 
       xml do
-        root "date"
+        element "date"
 
         map_content to: :content
-        map_attribute "day", to: :day
-        map_attribute "month", to: :month
-        map_attribute "year", to: :year
+        map_attribute "day", to: :day, value_map: { to: { empty: :empty } }
+        map_attribute "month", to: :month, value_map: { to: { empty: :empty } }
+        map_attribute "year", to: :year, value_map: { to: { empty: :empty } }
       end
     end
   end

@@ -10,7 +10,9 @@ module Rfcxml
       attribute :th, Th, collection: true
 
       xml do
-        root "tr"
+        element "tr"
+        ordered
+        mixed_content
 
         map_attribute "anchor", to: :anchor
         map_element "td", to: :td

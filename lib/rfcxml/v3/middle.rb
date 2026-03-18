@@ -8,7 +8,8 @@ module Rfcxml
       attribute :section, Section, collection: true
 
       xml do
-        root "middle"
+        element "middle"
+        ordered
 
         map_element "section", to: :section
       end

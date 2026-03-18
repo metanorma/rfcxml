@@ -18,7 +18,8 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "strong"
+        element "strong"
+        ordered
 
         map_content to: :content
         map_element "bcp14", to: :bcp14

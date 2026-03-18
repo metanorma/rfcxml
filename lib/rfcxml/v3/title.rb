@@ -11,10 +11,11 @@ module Rfcxml
       attribute :br, Br, collection: true
 
       xml do
-        root "title"
+        element "title"
 
         map_content to: :content
-        map_attribute "abbrev", to: :abbrev
+        map_attribute "abbrev", to: :abbrev,
+                                value_map: { to: { empty: :empty } }
         map_attribute "ascii", to: :ascii
         map_element "br", to: :br
       end

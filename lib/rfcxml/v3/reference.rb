@@ -19,11 +19,13 @@ module Rfcxml
       attribute :series_info, SeriesInfo, collection: true
 
       xml do
-        root "reference", mixed: true
+        element "reference"
+        mixed_content
 
         map_attribute "anchor", to: :anchor
         map_attribute "derivedAnchor", to: :derived_anchor
-        map_attribute "target", to: :target
+        map_attribute "target", to: :target,
+                                value_map: { to: { empty: :empty } }
         map_attribute "quoteTitle", to: :quote_title
         # map_attribute "quote-title", to: :quote_title
         map_element "stream", to: :stream

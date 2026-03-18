@@ -7,11 +7,10 @@ module Rfcxml
     class Td < Lutaml::Model::Serializable
       attribute :content, :string
       attribute :anchor, :string
-      attribute :colspan, :string, default: -> { "1" }
-      attribute :rowspan, :string, default: -> { "1" }
+      attribute :colspan, :string
+      attribute :rowspan, :string
       attribute :align, :string,
-                values: %w[left center right],
-                default: -> { "left" }
+                values: %w[left center right]
       attribute :artset, Artset, collection: true
       attribute :artwork, Artwork, collection: true
       attribute :dl, Dl, collection: true
@@ -35,7 +34,8 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "td"
+        element "td"
+        mixed_content
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

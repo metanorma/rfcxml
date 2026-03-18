@@ -36,7 +36,8 @@ module Rfcxml
       attribute :section, Section, collection: true
 
       xml do
-        root "section", mixed: true
+        element "section"
+        mixed_content
 
         map_attribute "anchor", to: :anchor
         map_attribute "pn", to: :pn

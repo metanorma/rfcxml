@@ -9,7 +9,7 @@ module Rfcxml
       attribute :ascii, :string
 
       xml do
-        root "sortingcode"
+        element "sortingcode"
 
         map_content to: :content
         map_attribute "ascii", to: :ascii

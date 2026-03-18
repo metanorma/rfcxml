@@ -19,7 +19,7 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "tt"
+        element "tt"
 
         map_content to: :content
         map_element "bcp14", to: :bcp14

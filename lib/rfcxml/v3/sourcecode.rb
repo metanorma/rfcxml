@@ -8,23 +8,27 @@ module Rfcxml
       attribute :content, :string
       attribute :anchor, :string
       attribute :pn, :string
-      attribute :name, :string, default: -> { "" }
-      attribute :type, :string, default: -> { "" }
-      attribute :markers, :string, default: -> { "false" }
+      attribute :name, :string
+      attribute :type, :string
+      attribute :markers, :string
       attribute :src, :string
       attribute :original_src, :string
 
       xml do
-        root "sourcecode"
+        element "sourcecode"
+        mixed_content
 
         map_content to: :content
-        map_attribute "anchor", to: :anchor
-        map_attribute "pn", to: :pn
+        map_attribute "anchor", to: :anchor,
+                                value_map: { to: { empty: :empty } }
+        map_attribute "pn", to: :pn, value_map: { to: { empty: :empty } }
         map_attribute "name", to: :name, value_map: { to: { empty: :empty } }
         map_attribute "type", to: :type, value_map: { to: { empty: :empty } }
-        map_attribute "markers", to: :markers
-        map_attribute "src", to: :src
-        map_attribute "originalSrc", to: :original_src
+        map_attribute "markers", to: :markers,
+                                 value_map: { to: { empty: :empty } }
+        map_attribute "src", to: :src, value_map: { to: { empty: :empty } }
+        map_attribute "originalSrc", to: :original_src,
+                                     value_map: { to: { empty: :empty } }
       end
     end
   end

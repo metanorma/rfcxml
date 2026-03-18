@@ -11,8 +11,8 @@ module Rfcxml
   module V3
     class Rfc < Lutaml::Model::Serializable
       attribute :number, :string
-      attribute :obsoletes, :string, default: -> { "" }
-      attribute :updates, :string, default: -> { "" }
+      attribute :obsoletes, :string
+      attribute :updates, :string
       attribute :category, :string,
                 values: %w[std bcp exp info historic]
       attribute :mode, :string
@@ -50,11 +50,14 @@ module Rfcxml
       attribute :back, Back
 
       xml do
-        root "rfc"
+        element "rfc"
+        ordered
 
         map_attribute "number", to: :number
-        map_attribute "obsoletes", to: :obsoletes
-        map_attribute "updates", to: :updates
+        map_attribute "obsoletes", to: :obsoletes,
+                                   value_map: { to: { empty: :empty } }
+        map_attribute "updates", to: :updates,
+                                 value_map: { to: { empty: :empty } }
         map_attribute "category", to: :category
         map_attribute "mode", to: :mode
         map_attribute "consensus", to: :consensus
@@ -76,6 +79,38 @@ module Rfcxml
 
         %w[link front middle back].each do |element|
           map_element element, to: element.to_sym
+        end
+      end
+
+      # Override to_xml to fix SVG elements
+      # SVG elements need xmlns="http://www.w3.org/2000/svg" attribute
+      # lutaml-model doesn't properly output xmlns when serializing SVG
+      # and it incorrectly handles <text> elements (treats them as text content)
+      def to_xml(options = {})
+        xml = super
+        return xml unless xml
+
+        # Post-process to ensure SVG elements have xmlns attribute
+        doc = Nokogiri::XML(xml)
+        svg_needs_fix = doc.xpath("//svg[not(@xmlns)]").any? ||
+          doc.xpath("//svg//*[@xmlns='http://www.w3.org/2000/svg']").any?
+
+        return xml unless svg_needs_fix
+
+        doc.xpath("//svg[not(@xmlns)]").each do |svg_elem|
+          svg_elem["xmlns"] = "http://www.w3.org/2000/svg"
+        end
+
+        # Remove redundant xmlns from child elements within SVG
+        doc.xpath("//svg//*[@xmlns='http://www.w3.org/2000/svg']").each do |child|
+          child.delete("xmlns")
+        end
+
+        # Preserve XML declaration if it was in the original output
+        if xml.start_with?("<?xml")
+          doc.to_xml
+        else
+          doc.root.to_xml
         end
       end
     end

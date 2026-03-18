@@ -8,7 +8,7 @@ module Rfcxml
       attribute :section, Section, collection: true
 
       xml do
-        root "toc"
+        element "toc"
 
         map_element "section", to: :section
       end

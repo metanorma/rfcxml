@@ -9,7 +9,7 @@ module Rfcxml
       attribute :to, :string
 
       xml do
-        root "displayreference"
+        element "displayreference"
 
         map_attribute "target", to: :target
         map_attribute "to", to: :to

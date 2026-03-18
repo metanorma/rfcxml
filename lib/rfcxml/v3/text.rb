@@ -31,7 +31,8 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "t", mixed: true
+        element "t"
+        mixed_content
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

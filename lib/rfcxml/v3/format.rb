@@ -10,7 +10,7 @@ module Rfcxml
       attribute :octets, :string
 
       xml do
-        root "format"
+        element "format"
 
         map_attribute "target", to: :target
         map_attribute "type", to: :type

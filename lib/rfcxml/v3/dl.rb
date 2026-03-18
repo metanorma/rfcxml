@@ -14,7 +14,8 @@ module Rfcxml
       attribute :dd, Dd, collection: true
 
       xml do
-        root "dl", mixed: true
+        element "dl"
+        mixed_content
 
         map_attribute "anchor", to: :anchor
         map_attribute "spacing", to: :spacing

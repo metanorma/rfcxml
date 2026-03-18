@@ -12,7 +12,8 @@ module Rfcxml
       attribute :uri, Uri
 
       xml do
-        root "address"
+        element "address"
+        ordered
 
         map_element "postal", to: :postal
         map_element "phone", to: :phone

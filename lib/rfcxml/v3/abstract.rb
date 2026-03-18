@@ -13,7 +13,8 @@ module Rfcxml
       attribute :ul, Ul, collection: true
 
       xml do
-        root "abstract"
+        element "abstract"
+        ordered
 
         map_attribute "anchor", to: :anchor
         map_attribute "pn", to: :pn

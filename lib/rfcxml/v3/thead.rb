@@ -9,7 +9,7 @@ module Rfcxml
       attribute :tr, Tr, collection: true
 
       xml do
-        root "thead"
+        element "thead"
 
         map_attribute "anchor", to: :anchor
         map_element "tr", to: :tr

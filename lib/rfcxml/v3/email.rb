@@ -9,7 +9,7 @@ module Rfcxml
       attribute :ascii, :string
 
       xml do
-        root "email"
+        element "email"
 
         map_content to: :content
         map_attribute "ascii", to: :ascii
