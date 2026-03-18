@@ -6,6 +6,42 @@ RSpec.describe Rfcxml::V3::Rfc do
     File.read(filename)
   end
 
+  # ============================================================================
+  # Enumeration Validation Tests
+  # ============================================================================
+  describe "enumeration validations" do
+    it "accepts valid category values" do
+      %w[std bcp exp info historic].each do |value|
+        rfc = Rfcxml::V3::Rfc.new(category: value)
+        expect(rfc.category).to eq(value)
+      end
+    end
+
+    it "accepts valid consensus values" do
+      %w[no yes false true].each do |value|
+        rfc = Rfcxml::V3::Rfc.new(consensus: value)
+        expect(rfc.consensus).to eq(value)
+      end
+    end
+
+    it "accepts valid submission_type values" do
+      %w[IETF IAB IRTF independent editorial].each do |value|
+        rfc = Rfcxml::V3::Rfc.new(submission_type: value)
+        expect(rfc.submission_type).to eq(value)
+      end
+    end
+
+    it "applies default values correctly" do
+      rfc = Rfcxml::V3::Rfc.new
+      expect(rfc.consensus).to eq("false")
+      expect(rfc.submission_type).to eq("IETF")
+      expect(rfc.sort_refs).to eq("false")
+      expect(rfc.sym_refs).to eq("true")
+      expect(rfc.toc_include).to eq("true")
+      expect(rfc.index_include).to eq("true")
+    end
+  end
+
   glob_path = Pathname.new(__dir__)
     .join("../xmlsource-rfc8650-latest/*.xml")
 

@@ -11,7 +11,9 @@ module Rfcxml
       attribute :name, :string, default: -> { "" }
       attribute :type, :string, default: -> { "" }
       attribute :src, :string
-      attribute :align, :string, default: -> { "left" }
+      attribute :align, :string,
+                values: %w[left center right],
+                default: -> { "left" }
       attribute :alt, :string, default: -> { "" }
       attribute :width, :string, default: -> { "" }
       attribute :height, :string, default: -> { "" }

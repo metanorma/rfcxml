@@ -8,8 +8,9 @@ module Rfcxml
       attribute :anchor, :string
       attribute :derived_anchor, :string
       attribute :target, :string
-      # attribute :quote_title, :string, default: -> { "true" }
-      attribute :quote_title, :string
+      attribute :quote_title, :string,
+                values: %w[true false],
+                default: -> { "true" }
       attribute :stream, :string
       attribute :front, Front
       attribute :annotation, Annotation, collection: true

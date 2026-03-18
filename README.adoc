@@ -290,6 +290,51 @@ xml = rfc.to_xml(
 )
 ----
 
+== Enumeration Validation
+
+The library provides built-in validation for all RFC XML v3 enumeration attributes.
+These are defined in the v3.rnc schema and implemented using lutaml-model's `values:` constraint.
+
+=== Core Document Attributes
+
+|===
+| Attribute | Valid Values | Default
+| `category` | `std`, `bcp`, `exp`, `info`, `historic` | -
+| `consensus` | `no`, `yes`, `false`, `true` | `false`
+| `submissionType` | `IETF`, `IAB`, `IRTF`, `independent`, `editorial` | `IETF`
+| `sortRefs` | `true`, `false` | `false`
+| `symRefs` | `true`, `false` | `true`
+| `tocInclude` | `true`, `false` | `true`
+| `indexInclude` | `true`, `false` | `true`
+|===
+
+=== Section Attributes
+
+|===
+| Attribute | Valid Values | Default
+| `numbered` | `true`, `false` | `true`
+| `toc` | `include`, `exclude`, `default` | `default`
+| `removeInRFC` | `true`, `false` | `false`
+|===
+
+=== Author Attributes
+
+|===
+| Attribute | Valid Values | Default
+| `role` | `editor` | -
+|===
+
+=== Validation
+
+Validation requires an explicit call to `validate` or `validate!`:
+
+[source,ruby]
+----
+rfc = Rfcxml::V3::Rfc.new(category: "invalid")
+errors = rfc.validate  # => array of validation errors
+rfc.validate!          # => raises Lutaml::Model::ValidationError
+----
+
 == Development
 
 After checking out the repo, run:

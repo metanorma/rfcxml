@@ -9,7 +9,9 @@ module Rfcxml
       attribute :anchor, :string
       attribute :colspan, :string, default: -> { "1" }
       attribute :rowspan, :string, default: -> { "1" }
-      attribute :align, :string, default: -> { "left" }
+      attribute :align, :string,
+                values: %w[left center right],
+                default: -> { "left" }
       attribute :artset, Artset, collection: true
       attribute :artwork, Artwork, collection: true
       attribute :dl, Dl, collection: true

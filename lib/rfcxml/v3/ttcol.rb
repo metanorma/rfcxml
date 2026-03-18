@@ -7,7 +7,9 @@ module Rfcxml
     class Ttcol < Lutaml::Model::Serializable
       attribute :content, :string
       attribute :width, :string
-      attribute :align, :string, default: -> { "left" }
+      attribute :align, :string,
+                values: %w[left center right],
+                default: -> { "left" }
       attribute :cref, Cref, collection: true
       attribute :eref, Eref, collection: true
       attribute :iref, Iref, collection: true

@@ -10,7 +10,8 @@ module Rfcxml
       attribute :ascii_name, :string
       attribute :ascii_value, :string
       attribute :status, :string
-      attribute :stream, :string
+      attribute :stream, :string,
+                values: %w[IETF IAB IRTF independent editorial]
 
       xml do
         root "seriesInfo"

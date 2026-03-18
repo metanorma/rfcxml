@@ -13,21 +13,34 @@ module Rfcxml
       attribute :number, :string
       attribute :obsoletes, :string, default: -> { "" }
       attribute :updates, :string, default: -> { "" }
-      attribute :category, :string
+      attribute :category, :string,
+                values: %w[std bcp exp info historic]
       attribute :mode, :string
-      attribute :consensus, :string, default: -> { "false" }
+      attribute :consensus, :string,
+                values: %w[no yes false true],
+                default: -> { "false" }
       attribute :series_no, :string
       attribute :ipr, :string
       attribute :lang, Lutaml::Xml::W3c::XmlLangType
       attribute :ipr_extract, :string
-      attribute :submission_type, :string, default: -> { "IETF" }
+      attribute :submission_type, :string,
+                values: %w[IETF IAB IRTF independent editorial],
+                default: -> { "IETF" }
       attribute :doc_name, :string
-      attribute :sort_refs, :string, default: -> { "false" }
-      attribute :sym_refs, :string, default: -> { "true" }
-      attribute :toc_include, :string, default: -> { "true" }
+      attribute :sort_refs, :string,
+                values: %w[true false],
+                default: -> { "false" }
+      attribute :sym_refs, :string,
+                values: %w[true false],
+                default: -> { "true" }
+      attribute :toc_include, :string,
+                values: %w[true false],
+                default: -> { "true" }
       attribute :toc_depth, :string, default: -> { "3" }
       attribute :prep_time, :string
-      attribute :index_include, :string, default: -> { "true" }
+      attribute :index_include, :string,
+                values: %w[true false],
+                default: -> { "true" }
       attribute :version, :string
       attribute :scripts, :string, default: -> { "Common,Latin" }
       attribute :expires_date, :string

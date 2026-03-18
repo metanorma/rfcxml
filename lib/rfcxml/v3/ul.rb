@@ -6,9 +6,15 @@ module Rfcxml
   module V3
     class Ul < Lutaml::Model::Serializable
       attribute :anchor, :string
-      attribute :spacing, :string, default: -> { "normal" }
-      attribute :empty, :string, default: -> { "false" }
-      attribute :bare, :string, default: -> { "false" }
+      attribute :spacing, :string,
+                values: %w[normal compact],
+                default: -> { "normal" }
+      attribute :empty, :string,
+                values: %w[true false],
+                default: -> { "false" }
+      attribute :bare, :string,
+                values: %w[true false],
+                default: -> { "false" }
       attribute :indent, :string, default: -> { "3" }
       attribute :pn, :string
       attribute :li, Li, collection: true

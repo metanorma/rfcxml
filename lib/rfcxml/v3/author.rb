@@ -11,7 +11,7 @@ module Rfcxml
       attribute :surname, :string
       attribute :ascii_surname, :string
       attribute :fullname, :string
-      attribute :role, :string
+      attribute :role, :string, values: %w[editor]
       attribute :ascii_fullname, :string
       attribute :organization, Organization
       attribute :address, Address

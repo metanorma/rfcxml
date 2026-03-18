@@ -7,9 +7,15 @@ module Rfcxml
     class Texttable < Lutaml::Model::Serializable
       attribute :anchor, :string
       attribute :title, :string, default: -> { "" }
-      attribute :suppress_title, :string, default: -> { "false" }
-      attribute :align, :string, default: -> { "center" }
-      attribute :style, :string, default: -> { "full" }
+      attribute :suppress_title, :string,
+                values: %w[true false],
+                default: -> { "false" }
+      attribute :align, :string,
+                values: %w[left center right],
+                default: -> { "center" }
+      attribute :style, :string,
+                values: %w[all none headers full],
+                default: -> { "full" }
       attribute :name, Name
       attribute :preamble, Preamble
       attribute :ttcol, Ttcol, collection: true
