@@ -3,8 +3,7 @@
 require "lutaml/model"
 
 Lutaml::Model::Config.configure do |config|
-  require "lutaml/model/xml_adapter/nokogiri_adapter"
-  config.xml_adapter = Lutaml::Model::XmlAdapter::NokogiriAdapter
+  config.xml_adapter_type = :nokogiri
 end
 
 module Rfcxml
