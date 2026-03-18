@@ -1,8 +1,27 @@
 = RFC XML Ruby library
 
-The `rfcxml` library is a parser and generator for RFC XML documents. It is
-intended to be used to parse and generate RFC XML v3 documents.
+The `rfcxml` library is a parser and generator for RFC XML v3 documents.
+It provides bidirectional XML serialization using the lutaml-model framework,
+enabling perfect round-trips with namespace preservation.
 
+== Features
+
+- Parse RFC XML v3 documents into Ruby objects
+- Generate RFC XML v3 documents from Ruby objects
+- Perfect round-trip preservation (namespaces, `xml:lang`, etc.)
+- Full support for all RFC XML v3 elements
+- Built on lutaml-model for declarative XML mapping
+
+== Requirements
+
+- Ruby >= 3.2.0
+- lutaml-model ~> 0.8.0 (required for namespace preservation and `xml:lang` support)
+
+The lutaml-model 0.8.0 dependency provides:
+
+- Automatic namespace declaration preservation (`xmlns:*` attributes)
+- Built-in `Lutaml::Xml::W3c::XmlLangType` for `xml:lang` attribute handling
+- Perfect XML round-trip support
 
 == Installation
 
@@ -27,46 +46,175 @@ Or install it yourself as:
 $ gem install rfcxml
 ----
 
-
-
 == Usage
 
-To parse an RFC XML document:
+=== Parsing an RFC XML document
 
 [source,ruby]
 ----
 require 'rfcxml'
 
-rfc = Rfcxml::Document.new(File.read('rfc.xml'))
-puts rfc.title
-puts rfc.abstract
-puts rfc.sections
+# Parse from file
+xml = File.read('rfc8650.xml')
+rfc = Rfcxml::V3::Rfc.from_xml(xml)
+
+# Access document attributes
+puts rfc.number           # => "8650"
+puts rfc.category        # => "std"
+puts rfc.submission_type # => "IETF"
+
+# Access front matter
+puts rfc.front.title.to_s
+rfc.front.author.each do |author|
+  puts author.fullname
+end
+
+# Access sections
+rfc.middle.section.each do |section|
+  puts section.name
+end
 ----
 
-To generate an RFC XML document:
+=== Generating RFC XML
 
 [source,ruby]
 ----
 require 'rfcxml'
 
-rfc = Rfcxml::Document.new
-rfc.title = 'An RFC Title'
-rfc.abstract = 'An RFC Abstract'
-rfc.sections = [
-  Rfcxml::Section.new('Section 1', 'This is the first section'),
-  Rfcxml::Section.new('Section 2', 'This is the second section')
-]
+# Create a new RFC document
+rfc = Rfcxml::V3::Rfc.new(
+  number: "1234",
+  category: "info",
+  submission_type: "IETF"
+)
 
-puts rfc.to_xml
+# Build front matter
+rfc.front = Rfcxml::V3::Front.new(
+  title: Rfcxml::V3::Title.new(content: "My RFC Title"),
+  author: [
+    Rfcxml::V3::Author.new(
+      fullname: "John Doe",
+      email: "john@example.com"
+    )
+  ]
+)
+
+# Build middle section
+rfc.middle = Rfcxml::V3::Middle.new(
+  section: [
+    Rfcxml::V3::Section.new(
+      name: Rfcxml::V3::Name.new(content: "Introduction"),
+      t: [
+        Rfcxml::V3::T.new(content: "This is the introduction.")
+      ]
+    )
+  ]
+)
+
+# Serialize to XML
+xml = rfc.to_xml(pretty: true, declaration: true, encoding: "utf-8")
+puts xml
 ----
 
+=== Round-trip preservation
 
+The library preserves all XML structure during round-trips:
+
+[source,ruby]
+----
+require 'rfcxml'
+
+# Parse
+input = File.read('rfc.xml')
+rfc = Rfcxml::V3::Rfc.from_xml(input)
+
+# Serialize back
+output = rfc.to_xml(pretty: true, declaration: true, encoding: "utf-8")
+
+# The output preserves:
+# - xml:lang attribute
+# - xmlns:* namespace declarations (e.g., xmlns:xi for XInclude)
+# - All element structure and content
+----
+
+== Document Structure
+
+The RFC XML v3 structure maps to these Ruby classes:
+
+[cols="2,3"]
+|===
+| Ruby Class | XML Element
+
+| `Rfcxml::V3::Rfc` | `<rfc>` (root)
+| `Rfcxml::V3::Front` | `<front>`
+| `Rfcxml::V3::Middle` | `<middle>`
+| `Rfcxml::V3::Back` | `<back>`
+| `Rfcxml::V3::Title` | `<title>`
+| `Rfcxml::V3::Author` | `<author>`
+| `Rfcxml::V3::Section` | `<section>`
+| `Rfcxml::V3::T` | `<t>`
+| `Rfcxml::V3::List` | `<ul>`, `<ol>`, `<dl>`
+| `Rfcxml::V3::Figure` | `<figure>`
+| `Rfcxml::V3::Table` | `<table>`
+| `Rfcxml::V3::References` | `<references>`
+| `Rfcxml::V3::Reference` | `<reference>`
+|===
+
+== Serialization Options
+
+The `to_xml` method supports these options:
+
+[cols="1,1,3"]
+|===
+| Option | Default | Description
+
+| `:pretty` | `false` | Pretty-print XML with indentation
+| `:declaration` | `false` | Include XML declaration
+| `:encoding` | `"utf-8"` | Set encoding in XML declaration
+| `:omit_doctype` | `false` | Omit DOCTYPE declaration
+|===
+
+Example:
+
+[source,ruby]
+----
+xml = rfc.to_xml(
+  pretty: true,
+  declaration: true,
+  encoding: "utf-8"
+)
+----
+
+== Development
+
+After checking out the repo, run:
+
+[source]
+----
+$ bundle install
+$ bundle exec rake
+----
+
+This runs tests + linting. To run tests only:
+
+[source]
+----
+$ bundle exec rake spec
+----
+
+== Architecture
+
+The library uses lutaml-model for XML serialization:
+
+- All elements inherit from `Lutaml::Model::Serializable`
+- Attributes are declared with `attribute` class method
+- XML mapping is defined in `xml do ... end` block
+- Circular references use string class names (e.g., `"Rfcxml::V3::Section"`)
 
 == Contributing
 
 Bug reports and pull requests are welcome on GitHub at
 https://github.com/metanorma/rfcxml.
-
 
 == Copyright and license
 
