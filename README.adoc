@@ -64,56 +64,153 @@ puts rfc.category        # => "std"
 puts rfc.submission_type # => "IETF"
 
 # Access front matter
-puts rfc.front.title.to_s
+puts rfc.front.title.content
 rfc.front.author.each do |author|
   puts author.fullname
 end
 
 # Access sections
 rfc.middle.section.each do |section|
-  puts section.name
+  puts section.name&.content
 end
 ----
 
-=== Generating RFC XML
+=== Creating an Internet-Draft
+
+Internet-Drafts have a `doc_name` attribute but no `number`:
 
 [source,ruby]
 ----
 require 'rfcxml'
 
-# Create a new RFC document
+draft = Rfcxml::V3::Rfc.new(
+  doc_name: "draft-ietf-example-protocol-01",
+  submission_type: "IETF",
+  ipr: "trust200902",
+  category: "std",
+  version: "3",
+
+  front: Rfcxml::V3::Front.new(
+    title: Rfcxml::V3::Title.new(
+      content: "Example Protocol for Testing",
+      abbrev: "Example Protocol"
+    ),
+    author: [
+      Rfcxml::V3::Author.new(
+        fullname: "Jane Doe",
+        initials: "J.",
+        surname: "Doe",
+        role: "editor"
+      )
+    ],
+    date: Rfcxml::V3::Date.new(year: "2025", month: "January")
+  ),
+
+  middle: Rfcxml::V3::Middle.new(
+    section: [
+      Rfcxml::V3::Section.new(
+        anchor: "introduction",
+        name: Rfcxml::V3::Name.new(content: "Introduction"),
+        t: [
+          Rfcxml::V3::Text.new(content: "This is an example Internet-Draft.")
+        ]
+      )
+    ]
+  )
+)
+
+xml = draft.to_xml(pretty: true, declaration: true, encoding: "utf-8")
+----
+
+=== Creating a Published RFC
+
+Published RFCs have a `number` attribute and may have `obsoletes`/`updates`:
+
+[source,ruby]
+----
+require 'rfcxml'
+
 rfc = Rfcxml::V3::Rfc.new(
-  number: "1234",
-  category: "info",
-  submission_type: "IETF"
+  number: "9999",
+  category: "std",
+  obsoletes: "9998",
+  updates: "9997,9996",
+  consensus: "true",
+  ipr: "trust200902",
+  version: "3",
+
+  front: Rfcxml::V3::Front.new(
+    title: Rfcxml::V3::Title.new(
+      content: "A Standard Protocol for Example Purposes",
+      abbrev: "Example Standard"
+    ),
+    series_info: [
+      Rfcxml::V3::SeriesInfo.new(name: "RFC", value: "9999", stream: "IETF")
+    ],
+    author: [
+      Rfcxml::V3::Author.new(fullname: "John Smith", surname: "Smith")
+    ],
+    date: Rfcxml::V3::Date.new(year: "2025", month: "March")
+  ),
+
+  middle: Rfcxml::V3::Middle.new(
+    section: [
+      Rfcxml::V3::Section.new(
+        name: Rfcxml::V3::Name.new(content: "Overview"),
+        t: [
+          Rfcxml::V3::Text.new(content: "This document specifies a standard protocol.")
+        ]
+      )
+    ]
+  )
 )
 
-# Build front matter
-rfc.front = Rfcxml::V3::Front.new(
-  title: Rfcxml::V3::Title.new(content: "My RFC Title"),
-  author: [
-    Rfcxml::V3::Author.new(
-      fullname: "John Doe",
-      email: "john@example.com"
-    )
-  ]
-)
-
-# Build middle section
-rfc.middle = Rfcxml::V3::Middle.new(
-  section: [
-    Rfcxml::V3::Section.new(
-      name: Rfcxml::V3::Name.new(content: "Introduction"),
-      t: [
-        Rfcxml::V3::T.new(content: "This is the introduction.")
-      ]
-    )
-  ]
-)
-
-# Serialize to XML
 xml = rfc.to_xml(pretty: true, declaration: true, encoding: "utf-8")
-puts xml
+----
+
+=== Bibliography-Only Usage
+
+If you only need to parse or generate bibliography references (the `<reference>` element),
+you can use `Rfcxml::V3::Reference` directly:
+
+[source,ruby]
+----
+require 'rfcxml'
+
+# Parse a reference from XML
+ref_xml = <<~XML
+  <reference anchor="RFC2119">
+    <front>
+      <title>Key words for use in RFCs to Indicate Requirement Levels</title>
+      <author fullname="S. Bradner" surname="Bradner"/>
+      <date month="March" year="1997"/>
+    </front>
+    <seriesInfo name="RFC" value="2119"/>
+  </reference>
+XML
+
+ref = Rfcxml::V3::Reference.from_xml(ref_xml)
+puts ref.anchor  # => "RFC2119"
+puts ref.front.title.content
+
+# Create a reference programmatically
+ref = Rfcxml::V3::Reference.new(
+  anchor: "RFC8650",
+  front: Rfcxml::V3::Front.new(
+    title: Rfcxml::V3::Title.new(
+      content: "Dynamic Subscription to YANG Events and Datastores over RESTCONF"
+    ),
+    author: [
+      Rfcxml::V3::Author.new(fullname: "E. Voit", surname: "Voit")
+    ],
+    date: Rfcxml::V3::Date.new(year: "2019", month: "September"),
+    series_info: [
+      Rfcxml::V3::SeriesInfo.new(name: "RFC", value: "8650")
+    ]
+  )
+)
+
+xml = ref.to_xml(pretty: true)
 ----
 
 === Round-trip preservation
@@ -152,13 +249,21 @@ The RFC XML v3 structure maps to these Ruby classes:
 | `Rfcxml::V3::Title` | `<title>`
 | `Rfcxml::V3::Author` | `<author>`
 | `Rfcxml::V3::Section` | `<section>`
-| `Rfcxml::V3::T` | `<t>`
-| `Rfcxml::V3::List` | `<ul>`, `<ol>`, `<dl>`
-| `Rfcxml::V3::Figure` | `<figure>`
-| `Rfcxml::V3::Table` | `<table>`
-| `Rfcxml::V3::References` | `<references>`
+| `Rfcxml::V3::Text` | `<t>` (paragraph)
 | `Rfcxml::V3::Reference` | `<reference>`
+| `Rfcxml::V3::References` | `<references>`
 |===
+
+=== Key Differences: Internet-Draft vs Published RFC
+
+| Attribute | Internet-Draft | Published RFC |
+|-----------|----------------|---------------|
+| `doc_name` | Required (e.g., `draft-ietf-wg-topic-01`) | Optional |
+| `number` | Not used | Required (e.g., `"8650"`) |
+| `expires_date` | Optional | Not used |
+| `obsoletes` | Not used | Optional |
+| `updates` | Not used | Optional |
+| `series_info` | Optional | Usually present |
 
 == Serialization Options
 
