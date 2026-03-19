@@ -17,12 +17,12 @@ on:
     paths:
       - 'lib/**'
       - 'spec/**'
-      - 'script/roundtrip_all_rfcs.rb'
+      - 'scripts/roundtrip_test.rb'
   pull_request:
     paths:
       - 'lib/**'
       - 'spec/**'
-      - 'script/roundtrip_all_rfcs.rb'
+      - 'scripts/roundtrip_test.rb'
 
 permissions:
   contents: read
@@ -58,7 +58,7 @@ jobs:
       - name: Run round-trip tests
         run: |
           echo "Testing all RFC XML files..."
-          ruby script/roundtrip_all_rfcs.rb "$XML_DIR"
+          ruby scripts/roundtrip_test.rb "$XML_DIR"
         continue-on-error: true
         id: roundtrip
 
