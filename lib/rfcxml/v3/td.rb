@@ -11,6 +11,22 @@ module Rfcxml
       attribute :rowspan, :string
       attribute :align, :string,
                 values: %w[left center right]
+
+      # Normalize empty string colspan/rowspan to nil.
+      # Schema default for colspan/rowspan is "1", so empty string should not
+      # be serialized as an attribute. This ensures round-trip comparison
+      # treats rowspan="" (in source) as equivalent to absent rowspan (in output).
+      module ColspanRowspanNormalizer
+        def colspan=(value)
+          super(value.to_s.empty? ? nil : value)
+        end
+
+        def rowspan=(value)
+          super(value.to_s.empty? ? nil : value)
+        end
+      end
+
+      prepend ColspanRowspanNormalizer
       attribute :artset, Artset, collection: true
       attribute :artwork, Artwork, collection: true
       attribute :dl, Dl, collection: true
