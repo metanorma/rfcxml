@@ -6,27 +6,27 @@ RSpec.describe Rfcxml::V3::Section do
   describe "enumeration validations" do
     it "accepts valid numbered values" do
       %w[true false].each do |value|
-        section = Rfcxml::V3::Section.new(numbered: value)
+        section = described_class.new(numbered: value)
         expect(section.numbered).to eq(value)
       end
     end
 
     it "accepts valid toc values" do
       %w[include exclude default].each do |value|
-        section = Rfcxml::V3::Section.new(toc: value)
+        section = described_class.new(toc: value)
         expect(section.toc).to eq(value)
       end
     end
 
     it "accepts valid remove_in_rfc values" do
       %w[true false].each do |value|
-        section = Rfcxml::V3::Section.new(remove_in_rfc: value)
+        section = described_class.new(remove_in_rfc: value)
         expect(section.remove_in_rfc).to eq(value)
       end
     end
 
     it "applies default values correctly" do
-      section = Rfcxml::V3::Section.new
+      section = described_class.new
       expect(section.numbered).to eq("true")
       expect(section.toc).to eq("default")
       expect(section.remove_in_rfc).to eq("false")
@@ -35,7 +35,7 @@ RSpec.describe Rfcxml::V3::Section do
 
   describe "XML round-trip" do
     it "preserves enumeration values in XML" do
-      section = Rfcxml::V3::Section.new(
+      section = described_class.new(
         anchor: "test-section",
         numbered: "false",
         toc: "exclude",
@@ -49,7 +49,7 @@ RSpec.describe Rfcxml::V3::Section do
       expect(xml).to include('removeInRFC="true"')
 
       # Round-trip
-      reparsed = Rfcxml::V3::Section.from_xml(xml)
+      reparsed = described_class.from_xml(xml)
       expect(reparsed.numbered).to eq("false")
       expect(reparsed.toc).to eq("exclude")
       expect(reparsed.remove_in_rfc).to eq("true")

@@ -5,19 +5,19 @@ require "spec_helper"
 RSpec.describe Rfcxml::V3::Author do
   describe "enumeration validations" do
     it "accepts valid role value" do
-      author = Rfcxml::V3::Author.new(role: "editor")
+      author = described_class.new(role: "editor")
       expect(author.role).to eq("editor")
     end
 
     it "allows nil role" do
-      author = Rfcxml::V3::Author.new
+      author = described_class.new
       expect(author.role).to be_nil
     end
   end
 
   describe "XML round-trip" do
     it "preserves role in XML" do
-      author = Rfcxml::V3::Author.new(
+      author = described_class.new(
         fullname: "Jane Doe",
         initials: "J.",
         surname: "Doe",
@@ -28,7 +28,7 @@ RSpec.describe Rfcxml::V3::Author do
       expect(xml).to include('role="editor"')
 
       # Round-trip
-      reparsed = Rfcxml::V3::Author.from_xml(xml)
+      reparsed = described_class.from_xml(xml)
       expect(reparsed.role).to eq("editor")
       expect(reparsed.fullname).to eq("Jane Doe")
     end

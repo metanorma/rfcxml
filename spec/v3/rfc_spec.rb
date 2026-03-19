@@ -12,27 +12,27 @@ RSpec.describe Rfcxml::V3::Rfc do
   describe "enumeration validations" do
     it "accepts valid category values" do
       %w[std bcp exp info historic].each do |value|
-        rfc = Rfcxml::V3::Rfc.new(category: value)
+        rfc = described_class.new(category: value)
         expect(rfc.category).to eq(value)
       end
     end
 
     it "accepts valid consensus values" do
       %w[no yes false true].each do |value|
-        rfc = Rfcxml::V3::Rfc.new(consensus: value)
+        rfc = described_class.new(consensus: value)
         expect(rfc.consensus).to eq(value)
       end
     end
 
     it "accepts valid submission_type values" do
       %w[IETF IAB IRTF independent editorial].each do |value|
-        rfc = Rfcxml::V3::Rfc.new(submission_type: value)
+        rfc = described_class.new(submission_type: value)
         expect(rfc.submission_type).to eq(value)
       end
     end
 
     it "applies default values correctly" do
-      rfc = Rfcxml::V3::Rfc.new
+      rfc = described_class.new
       expect(rfc.consensus).to eq("false")
       expect(rfc.submission_type).to eq("IETF")
       expect(rfc.sort_refs).to eq("false")
@@ -52,8 +52,8 @@ RSpec.describe Rfcxml::V3::Rfc do
       input = file_contents(Pathname.new(filename))
 
       # Verify parsing works
-      parsed = Rfcxml::V3::Rfc.from_xml(input)
-      expect(parsed).to be_a(Rfcxml::V3::Rfc)
+      parsed = described_class.from_xml(input)
+      expect(parsed).to be_a(described_class)
 
       # Verify serialization produces valid XML
       output = parsed.to_xml(
@@ -63,15 +63,15 @@ RSpec.describe Rfcxml::V3::Rfc do
       )
 
       # Verify output can be re-parsed
-      reparsed = Rfcxml::V3::Rfc.from_xml(output)
-      expect(reparsed).to be_a(Rfcxml::V3::Rfc)
+      reparsed = described_class.from_xml(output)
+      expect(reparsed).to be_a(described_class)
     end
 
     # Round-trip test: parse XML, serialize back, compare semantically
     # Namespace declarations (xmlns:*) are preserved during round-trip
     it "round-trips #{fn} preserving XML structure" do
       input = file_contents(Pathname.new(filename))
-      parsed = Rfcxml::V3::Rfc.from_xml(input)
+      parsed = described_class.from_xml(input)
       output = parsed.to_xml(
         pretty: true,
         declaration: true,
