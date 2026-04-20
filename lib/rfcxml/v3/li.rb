@@ -5,7 +5,7 @@ require "lutaml/model"
 module Rfcxml
   module V3
     class Li < Lutaml::Model::Serializable
-      attribute :content, :string
+      attribute :content, :string, collection: true
       attribute :anchor, :string
       attribute :pn, :string
       attribute :artset, Artset, collection: true
