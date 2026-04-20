@@ -5,7 +5,7 @@ require "lutaml/model"
 module Rfcxml
   module V3
     class Name < Lutaml::Model::Serializable
-      attribute :content, :string
+      attribute :content, :string, collection: true
       attribute :slugified_name, :string
       attribute :bcp14, Bcp14, collection: true
       attribute :br, Br, collection: true
