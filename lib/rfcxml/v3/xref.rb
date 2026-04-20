@@ -5,7 +5,7 @@ require "lutaml/model"
 module Rfcxml
   module V3
     class Xref < Lutaml::Model::Serializable
-      attribute :content, :string
+      attribute :content, :string, collection: true
       attribute :target, :string
       attribute :pageno, :string, default: -> { "false" }
       attribute :format, :string, default: -> { "default" }

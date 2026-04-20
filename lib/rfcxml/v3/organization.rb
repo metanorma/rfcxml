@@ -5,7 +5,7 @@ require "lutaml/model"
 module Rfcxml
   module V3
     class Organization < Lutaml::Model::Serializable
-      attribute :content, :string
+      attribute :content, :string, collection: true
       attribute :abbrev, :string
       attribute :ascii, :string
       attribute :ascii_abbrev, :string
