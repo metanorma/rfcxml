@@ -5,7 +5,7 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in genericode.gemspec
 gemspec
 
-gem "canon", github: "ronaldtse/canon", branch: "fix/empty-attribute-value"
+gem "canon"
 gem "lutaml-model", github: "lutaml/lutaml-model", ref: "main"
 gem "nokogiri"
 gem "rake", "~> 13.0"
