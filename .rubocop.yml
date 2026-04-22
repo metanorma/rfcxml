@@ -15,3 +15,5 @@ plugins:
   - rubocop-performance
   - rubocop-rake
 
+AllCops:
+  TargetRubyVersion: 3.0
