@@ -12,7 +12,6 @@ module Rfcxml
       xml do
         element "tr"
         ordered
-        mixed_content
 
         map_attribute "anchor", to: :anchor
         map_element "td", to: :td
