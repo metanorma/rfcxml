@@ -15,7 +15,7 @@ module Rfcxml
       attribute :original_src, :string
 
       xml do
-        root "sourcecode"
+        element "sourcecode"
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

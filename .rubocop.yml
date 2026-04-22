@@ -7,5 +7,12 @@ inherit_from:
 # local repo-specific modifications
 # ...
 
+plugins:
+  - rubocop-rspec
+  - rubocop-rake
+
 AllCops:
   TargetRubyVersion: 3.4
+
+Metrics/BlockLength:
+  Max: 26

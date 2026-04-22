@@ -13,7 +13,7 @@ module Rfcxml
       attribute :stream, :string
 
       xml do
-        root "seriesInfo"
+        element "seriesInfo"
 
         map_attribute "name", to: :name
         map_attribute "value", to: :value

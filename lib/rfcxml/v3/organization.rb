@@ -12,7 +12,7 @@ module Rfcxml
       attribute :show_on_front_page, :string, default: -> { "true" }
 
       xml do
-        root "organization"
+        element "organization"
 
         map_content to: :content
         map_attribute "abbrev", to: :abbrev

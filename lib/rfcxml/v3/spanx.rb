@@ -9,7 +9,7 @@ module Rfcxml
       attribute :style, :string, default: -> { "emph" }
 
       xml do
-        root "spanx"
+        element "spanx"
 
         map_content to: :content
         map_attribute "style", to: :style

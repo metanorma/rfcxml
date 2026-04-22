@@ -11,7 +11,7 @@ module Rfcxml
       attribute :br, Br, collection: true
 
       xml do
-        root "title"
+        element "title"
 
         map_content to: :content
         map_attribute "abbrev", to: :abbrev

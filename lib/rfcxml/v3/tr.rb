@@ -10,7 +10,7 @@ module Rfcxml
       attribute :th, Th, collection: true
 
       xml do
-        root "tr"
+        element "tr"
 
         map_attribute "anchor", to: :anchor
         map_element "td", to: :td

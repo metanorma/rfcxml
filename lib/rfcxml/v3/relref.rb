@@ -14,7 +14,7 @@ module Rfcxml
       attribute :derived_link, :string
 
       xml do
-        root "relref"
+        element "relref"
 
         map_content to: :content
         map_attribute "target", to: :target

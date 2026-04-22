@@ -18,7 +18,7 @@ module Rfcxml
       attribute :original_src, :string
 
       xml do
-        root "artwork"
+        element "artwork"
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

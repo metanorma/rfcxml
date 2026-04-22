@@ -33,7 +33,7 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "td"
+        element "td"
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

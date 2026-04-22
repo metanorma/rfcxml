@@ -17,7 +17,7 @@ module Rfcxml
       attribute :postamble, Postamble
 
       xml do
-        root "texttable"
+        element "texttable"
 
         map_attribute "anchor", to: :anchor
         map_attribute "title", to: :title

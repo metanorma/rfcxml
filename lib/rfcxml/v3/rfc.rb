@@ -37,7 +37,7 @@ module Rfcxml
       attribute :back, Back
 
       xml do
-        root "rfc"
+        element "rfc"
 
         map_attribute "number", to: :number
         map_attribute "obsoletes", to: :obsoletes

@@ -5,7 +5,7 @@ require "lutaml/model"
 module Rfcxml
   module V3
     class Dd < Lutaml::Model::Serializable
-      attribute :content, :string
+      attribute :content, :string, collection: true
       attribute :anchor, :string
       attribute :pn, :string
       attribute :artset, Artset, collection: true
@@ -34,7 +34,8 @@ module Rfcxml
       attribute :aside, Aside, collection: true
 
       xml do
-        root "dd", mixed: true
+        element "dd"
+        mixed_content
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

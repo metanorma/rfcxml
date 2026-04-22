@@ -8,7 +8,7 @@ module Rfcxml
       attribute :section, Section, collection: true
 
       xml do
-        root "boilerplate"
+        element "boilerplate"
 
         map_element "section", to: :section
       end

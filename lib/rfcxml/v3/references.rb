@@ -14,7 +14,7 @@ module Rfcxml
       attribute :referencegroup, Referencegroup, collection: true
 
       xml do
-        root "references"
+        element "references"
 
         map_attribute "pn", to: :pn
         map_attribute "anchor", to: :anchor

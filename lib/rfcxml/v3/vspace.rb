@@ -8,7 +8,7 @@ module Rfcxml
       attribute :blank_lines, :string, default: -> { "0" }
 
       xml do
-        root "vspace"
+        element "vspace"
 
         map_attribute "blankLines", to: :blank_lines
       end

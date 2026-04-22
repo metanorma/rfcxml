@@ -20,7 +20,7 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "cref"
+        element "cref"
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

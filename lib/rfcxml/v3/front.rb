@@ -18,7 +18,7 @@ module Rfcxml
       attribute :toc, Toc
 
       xml do
-        root "front"
+        element "front"
 
         map_element "title", to: :title
         map_element "seriesInfo", to: :series_info

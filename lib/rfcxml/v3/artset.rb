@@ -10,7 +10,7 @@ module Rfcxml
       attribute :artwork, Artwork, collection: true
 
       xml do
-        root "artset"
+        element "artset"
 
         map_attribute "anchor", to: :anchor
         map_attribute "pn", to: :pn

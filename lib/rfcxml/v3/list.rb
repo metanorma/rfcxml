@@ -12,7 +12,7 @@ module Rfcxml
       attribute :text, "Rfcxml::V3::Text", collection: true
 
       xml do
-        root "list"
+        element "list"
 
         map_attribute "style", to: :style
         map_attribute "hangIndent", to: :hang_indent

@@ -14,7 +14,7 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "ttcol"
+        element "ttcol"
 
         map_content to: :content
         map_attribute "width", to: :width

@@ -10,7 +10,7 @@ module Rfcxml
       attribute :target, :string
 
       xml do
-        root "eref"
+        element "eref"
 
         map_content to: :content
         map_attribute "brackets", to: :brackets

@@ -17,7 +17,7 @@ module Rfcxml
       include XrefText
 
       xml do
-        root "xref"
+        element "xref"
 
         map_content to: :content
         map_attribute "target", to: :target

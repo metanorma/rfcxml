@@ -10,7 +10,7 @@ module Rfcxml
       attribute :section, Section, collection: true
 
       xml do
-        root "back"
+        element "back"
 
         map_element "displayreference", to: :displayreference
         map_element "references", to: :references

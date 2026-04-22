@@ -15,7 +15,7 @@ module Rfcxml
       attribute :ul, Ul, collection: true
 
       xml do
-        root "note"
+        element "note"
 
         map_attribute "title", to: :title
         map_attribute "pn", to: :pn

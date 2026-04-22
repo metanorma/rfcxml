@@ -8,7 +8,7 @@ module Rfcxml
       attribute :content, :string
 
       xml do
-        root "area"
+        element "area"
 
         map_content to: :content
       end

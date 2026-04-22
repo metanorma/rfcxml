@@ -17,7 +17,7 @@ module Rfcxml
       attribute :address, Address
 
       xml do
-        root "author"
+        element "author"
 
         map_attribute "anchor", to: :anchor
         map_attribute "initials", to: :initials

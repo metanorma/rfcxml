@@ -12,7 +12,7 @@ module Rfcxml
       attribute :pn, :string
 
       xml do
-        root "u"
+        element "u"
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

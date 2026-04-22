@@ -11,7 +11,7 @@ module Rfcxml
       attribute :pn, :string
 
       xml do
-        root "iref"
+        element "iref"
 
         map_attribute "item", to: :item
         map_attribute "subitem", to: :subitem

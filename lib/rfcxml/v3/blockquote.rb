@@ -33,7 +33,7 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "blockquote"
+        element "blockquote"
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

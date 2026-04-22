@@ -24,7 +24,7 @@ module Rfcxml
       attribute :postamble, Postamble
 
       xml do
-        root "figure"
+        element "figure"
 
         map_attribute "anchor", to: :anchor
         map_attribute "pn", to: :pn

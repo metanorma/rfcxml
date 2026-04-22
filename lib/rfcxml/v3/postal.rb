@@ -17,7 +17,7 @@ module Rfcxml
       attribute :postal_line, PostalLine, collection: true
 
       xml do
-        root "postal"
+        element "postal"
 
         map_element "extaddr", to: :extaddr
         map_element "street", to: :street

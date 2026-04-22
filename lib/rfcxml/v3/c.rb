@@ -13,7 +13,7 @@ module Rfcxml
       attribute :xref, Xref, collection: true
 
       xml do
-        root "c"
+        element "c"
 
         map_content to: :content
         map_element "cref", to: :cref

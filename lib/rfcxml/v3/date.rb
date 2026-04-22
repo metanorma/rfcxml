@@ -11,7 +11,7 @@ module Rfcxml
       attribute :year, :string
 
       xml do
-        root "date"
+        element "date"
 
         map_content to: :content
         map_attribute "day", to: :day

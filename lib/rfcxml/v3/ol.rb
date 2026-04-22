@@ -15,7 +15,7 @@ module Rfcxml
       attribute :li, Li, collection: true
 
       xml do
-        root "ol"
+        element "ol"
 
         map_attribute "anchor", to: :anchor
         map_attribute "type", to: :type

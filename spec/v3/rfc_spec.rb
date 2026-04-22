@@ -16,8 +16,8 @@ RSpec.describe Rfcxml::V3::Rfc do
       input = file_contents(Pathname.new(filename))
 
       # Verify parsing works
-      parsed = Rfcxml::V3::Rfc.from_xml(input)
-      expect(parsed).to be_a(Rfcxml::V3::Rfc)
+      parsed = described_class.from_xml(input)
+      expect(parsed).to be_a(described_class)
 
       # Verify serialization produces valid XML
       output = parsed.to_xml(
@@ -27,15 +27,15 @@ RSpec.describe Rfcxml::V3::Rfc do
       )
 
       # Verify output can be re-parsed
-      reparsed = Rfcxml::V3::Rfc.from_xml(output)
-      expect(reparsed).to be_a(Rfcxml::V3::Rfc)
+      reparsed = described_class.from_xml(output)
+      expect(reparsed).to be_a(described_class)
     end
 
     # Round-trip test: parse XML, serialize back, compare semantically
     # Namespace declarations (xmlns:*) are preserved during round-trip
     it "round-trips #{fn} preserving XML structure" do
       input = file_contents(Pathname.new(filename))
-      parsed = Rfcxml::V3::Rfc.from_xml(input)
+      parsed = described_class.from_xml(input)
       output = parsed.to_xml(
         pretty: true,
         declaration: true,

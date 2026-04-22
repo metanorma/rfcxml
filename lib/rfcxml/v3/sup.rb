@@ -6,7 +6,7 @@ module Rfcxml
   module V3
     class Sup < Sub
       xml do
-        root "sup"
+        element "sup"
 
         map_content to: :content
         map_element "bcp14", to: :bcp14
