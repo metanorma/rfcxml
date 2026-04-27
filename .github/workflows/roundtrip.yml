@@ -59,21 +59,12 @@ jobs:
         run: |
           echo "Testing all RFC XML files..."
           ruby scripts/roundtrip_test.rb "$XML_DIR"
-        continue-on-error: true
-        id: roundtrip
 
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: roundtrip-results
-          path: |
-            *.log
+          path: tmp/roundtrip-results-*/
           retention-days: 30
-          if-no-files-found: ignore
-
-      - name: Check results
-        if: steps.roundtrip.outcome == 'failure'
-        run: |
-          echo "::error::Some RFC XML files failed round-trip testing"
-          exit 1
+          if-no-files-found: warn
