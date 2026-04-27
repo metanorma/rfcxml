@@ -39,7 +39,7 @@ class RoundTripTester
   attr_reader :results_dir
 
   def failed?
-    @results.any? { |r| r[:status] == :fail || r[:status] == :error }
+    @results.any? { |r| %i[fail error].include?(r[:status]) }
   end
 
   def initialize(files:, threads: DEFAULT_THREADS, verbose: false)
