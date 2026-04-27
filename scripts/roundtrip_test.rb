@@ -38,6 +38,10 @@ class RoundTripTester
 
   attr_reader :results_dir
 
+  def failed?
+    @results.any? { |r| r[:status] == :fail || r[:status] == :error }
+  end
+
   def initialize(files:, threads: DEFAULT_THREADS, verbose: false)
     @files = files
     @threads = threads
@@ -358,4 +362,6 @@ if __FILE__ == $PROGRAM_NAME
 
   tester = RoundTripTester.new(**options)
   tester.run
+
+  exit 1 if tester.failed?
 end
