@@ -82,7 +82,8 @@ RSpec.describe Rfcxml::V3::Rfc do
       XML
 
       parsed = described_class.from_xml(xml)
-      expect(parsed.pi_settings).to eq({ "toc" => "yes", "sort_refs" => "true", "compact" => "yes" })
+      expect(parsed.pi_settings).to eq({ "toc" => "yes", "sort_refs" => "true",
+                                         "compact" => "yes" })
 
       output = parsed.to_xml(pretty: true, declaration: true, encoding: "utf-8")
       expect(output).to include('<?rfc toc="yes"?>')
@@ -90,7 +91,8 @@ RSpec.describe Rfcxml::V3::Rfc do
       expect(output).to include('<?rfc compact="yes"?>')
 
       reparsed = described_class.from_xml(output)
-      expect(reparsed.pi_settings).to eq({ "toc" => "yes", "sort_refs" => "true", "compact" => "yes" })
+      expect(reparsed.pi_settings).to eq({ "toc" => "yes",
+                                           "sort_refs" => "true", "compact" => "yes" })
     end
   end
 end

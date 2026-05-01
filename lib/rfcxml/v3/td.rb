@@ -41,9 +41,9 @@ module Rfcxml
         map_content to: :content
         map_attribute "anchor", to: :anchor
         map_attribute "colspan", to: :colspan,
-                               value_map: { to: { empty: :empty } }
+                                 value_map: { to: { empty: :empty } }
         map_attribute "rowspan", to: :rowspan,
-                                value_map: { to: { empty: :empty } }
+                                 value_map: { to: { empty: :empty } }
         map_attribute "align", to: :align
 
         %w[artset artwork dl figure ol sourcecode t ul bcp14 br cref em eref
