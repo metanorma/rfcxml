@@ -48,6 +48,7 @@ module Rfcxml
       attribute :front, Front
       attribute :middle, Middle
       attribute :back, Back
+      attribute :pi_settings, :hash
 
       xml do
         element "rfc"
@@ -80,6 +81,8 @@ module Rfcxml
         %w[link front middle back].each do |element|
           map_element element, to: element.to_sym
         end
+
+        map_processing_instruction "rfc", to: :pi_settings
       end
 
       # Override to_xml to fix SVG elements

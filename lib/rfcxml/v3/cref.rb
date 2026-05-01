@@ -13,10 +13,10 @@ module Rfcxml
       attribute :em, Em, collection: true
       attribute :eref, Eref, collection: true
       attribute :relref, Relref, collection: true
-      attribute :strong, Strong, collection: true
-      attribute :sub, Sub, collection: true
-      attribute :sup, Sup, collection: true
-      attribute :tt, Tt, collection: true
+      attribute :strong, "Rfcxml::V3::Strong", collection: true
+      attribute :sub, "Rfcxml::V3::Sub", collection: true
+      attribute :sup, "Rfcxml::V3::Sup", collection: true
+      attribute :tt, "Rfcxml::V3::Tt", collection: true
       attribute :xref, Xref, collection: true
 
       xml do
