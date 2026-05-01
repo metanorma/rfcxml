@@ -43,7 +43,9 @@ RSpec.describe Rfcxml::V3::Cref do
       # The string type references ("Rfcxml::V3::Strong" etc.)
       # ensure no NameError even if Strong/Sub/Sup/Tt haven't
       # been autoloaded yet.
-      expect { load("#{__dir__}/../../lib/rfcxml/v3/cref.rb") }.not_to raise_error
+      expect do
+        load("#{__dir__}/../../lib/rfcxml/v3/cref.rb")
+      end.not_to raise_error
     end
   end
 end
