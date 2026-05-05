@@ -5,7 +5,7 @@ require "lutaml/model"
 module Rfcxml
   module V3
     class Cref < Lutaml::Model::Serializable
-      attribute :content, :string
+      attribute :content, :string, collection: true
       attribute :anchor, :string
       attribute :source, :string
       attribute :display, :string, default: -> { "true" }
@@ -21,7 +21,7 @@ module Rfcxml
 
       xml do
         element "cref"
-        ordered
+        mixed_content
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

@@ -5,7 +5,7 @@ require "lutaml/model"
 module Rfcxml
   module V3
     class C < Lutaml::Model::Serializable
-      attribute :content, :string
+      attribute :content, :string, collection: true
       attribute :cref, Cref, collection: true
       attribute :eref, Eref, collection: true
       attribute :iref, Iref, collection: true
@@ -14,7 +14,7 @@ module Rfcxml
 
       xml do
         element "c"
-        ordered
+        mixed_content
 
         map_content to: :content
         map_element "cref", to: :cref

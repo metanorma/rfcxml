@@ -7,7 +7,7 @@ module Rfcxml
     class Sup < Sub
       xml do
         element "sup"
-        ordered
+        mixed_content
 
         map_content to: :content
         map_element "bcp14", to: :bcp14

@@ -5,13 +5,13 @@ require "lutaml/model"
 module Rfcxml
   module V3
     class Refcontent < Lutaml::Model::Serializable
-      attribute :content, :string
+      attribute :content, :string, collection: true
       attribute :bcp14, Bcp14, collection: true
       include XrefText
 
       xml do
         element "refcontent"
-        ordered
+        mixed_content
 
         map_content to: :content
         map_element "bcp14", to: :bcp14
