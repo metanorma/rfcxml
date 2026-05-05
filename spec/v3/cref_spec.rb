@@ -24,7 +24,7 @@ RSpec.describe Rfcxml::V3::Cref do
       expect(cref.source).to eq("editor")
       expect(cref.strong.size).to eq(1)
       expect(cref.tt.size).to eq(1)
-      expect(cref.strong.first.content).to eq("MUST")
+      expect(cref.strong.first.content).to eq(["MUST"])
       expect(cref.tt.first.content).to eq("code")
     end
 

@@ -5,7 +5,7 @@ require "lutaml/model"
 module Rfcxml
   module V3
     class Preamble < Lutaml::Model::Serializable
-      attribute :content, :string
+      attribute :content, :string, collection: true
       attribute :bcp14, Bcp14, collection: true
       attribute :cref, Cref, collection: true
       attribute :em, Em, collection: true
@@ -22,7 +22,7 @@ module Rfcxml
 
       xml do
         element "preamble"
-        ordered
+        mixed_content
 
         map_content to: :content
         map_element "bcp14", to: :bcp14

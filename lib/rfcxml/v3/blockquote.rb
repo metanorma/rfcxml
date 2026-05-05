@@ -5,7 +5,7 @@ require "lutaml/model"
 module Rfcxml
   module V3
     class Blockquote < Lutaml::Model::Serializable
-      attribute :content, :string
+      attribute :content, :string, collection: true
       attribute :anchor, :string
       attribute :pn, :string
       attribute :cite, :string
@@ -34,7 +34,7 @@ module Rfcxml
 
       xml do
         element "blockquote"
-        ordered
+        mixed_content
 
         map_content to: :content
         map_attribute "anchor", to: :anchor

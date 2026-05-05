@@ -5,7 +5,7 @@ require "lutaml/model"
 module Rfcxml
   module V3
     class Sub < Lutaml::Model::Serializable
-      attribute :content, :string
+      attribute :content, :string, collection: true
       attribute :bcp14, Bcp14, collection: true
       attribute :cref, Cref, collection: true
       attribute :em, "Rfcxml::V3::Em", collection: true
@@ -20,7 +20,7 @@ module Rfcxml
 
       xml do
         element "sub"
-        ordered
+        mixed_content
 
         map_content to: :content
         map_element "bcp14", to: :bcp14
