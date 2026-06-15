@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -45,15 +45,15 @@ jobs:
       - name: Download RFC XML files
         run: |
           mkdir -p rfc-xml-source
-          echo "Downloading RFC XML tarball..."
-          curl -L -o xmlsource.tar.gz "https://www.rfc-editor.org/in-notes/tar/xmlsource-all.tar.gz"
-          echo "Extracting..."
-          tar -xzf xmlsource.tar.gz -C rfc-xml-source
-          # The tarball extracts to a subdirectory, find it
-          XML_DIR=$(find rfc-xml-source -name "*.xml" -type f | head -1 | xargs dirname)
-          echo "XML_DIR=$XML_DIR" >> $GITHUB_ENV
-          FILE_COUNT=$(find "$XML_DIR" -name "*.xml" -type f | wc -l)
-          echo "Found $FILE_COUNT XML files in $XML_DIR"
+          echo "Syncing published RFC XML files via rsync..."
+          # rfc-editor.org retired the bulk tarball; rsync is now the official source.
+          # --include='*.xml' --exclude='*' (without --include='*/') limits the transfer
+          # to XML files at the module root, which are the published RFCs.
+          rsync -az --include='*.xml' --exclude='*' \
+            rsync.rfc-editor.org::rfcs/ rfc-xml-source/
+          echo "XML_DIR=rfc-xml-source" >> $GITHUB_ENV
+          FILE_COUNT=$(find "$XML_DIR" -maxdepth 1 -name "*.xml" -type f | wc -l)
+          echo "Found $FILE_COUNT published RFC XML files in $XML_DIR"
 
       - name: Run round-trip tests
         run: |
@@ -62,7 +62,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: roundtrip-results
           path: tmp/roundtrip-results-*/
