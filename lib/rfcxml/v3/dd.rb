@@ -10,6 +10,7 @@ module Rfcxml
       attribute :pn, :string
       attribute :artset, Artset, collection: true
       attribute :artwork, Artwork, collection: true
+      attribute :blockquote, Blockquote, collection: true
       attribute :dl, Dl, collection: true
       attribute :figure, Figure, collection: true
       attribute :ol, Ol, collection: true
@@ -41,8 +42,9 @@ module Rfcxml
         map_attribute "anchor", to: :anchor
         map_attribute "pn", to: :pn
 
-        %w[artset artwork aside dl figure ol sourcecode t table ul bcp14 br
-           cref em eref iref relref strong sub sup tt u xref].each do |element|
+        %w[artset artwork blockquote aside dl figure ol sourcecode t table ul
+           bcp14 br cref em eref iref relref strong sub sup tt u
+           xref].each do |element|
           map_element element, to: element.to_sym
         end
       end

@@ -27,13 +27,14 @@ module Rfcxml
         map_attribute "pn", to: :pn
         map_attribute "name", to: :name, value_map: { to: { empty: :empty } }
         map_attribute "type", to: :type, value_map: { to: { empty: :empty } }
-        map_attribute "src", to: :src
+        map_attribute "src", to: :src, value_map: { to: { empty: :empty } }
         map_attribute "align", to: :align
         map_attribute "alt", to: :alt, value_map: { to: { empty: :empty } }
         map_attribute "width", to: :width, value_map: { to: { empty: :empty } }
         map_attribute "height", to: :height,
                                 value_map: { to: { empty: :empty } }
-        map_attribute "originalSrc", to: :original_src
+        map_attribute "originalSrc", to: :original_src,
+                                     value_map: { to: { empty: :empty } }
       end
     end
   end
