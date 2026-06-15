@@ -120,63 +120,82 @@ class RoundTripTester
     end
   end
 
+  def root_element_name(xml)
+    xml.each_line do |line|
+      if (m = line.match(/<([\w:.-]+)[\s>]/))
+        next if m[1] == "xml"
+
+        return m[1].sub(/^.*:/, "")
+      end
+    end
+    nil
+  end
+
   def perform_test(filepath, basename)
-    # Read input
-    input = begin
-      File.read(filepath)
-    rescue StandardError => e
-      return build_error_result(basename, "Read", e)
-    end
+    input = read_input(filepath, basename)
+    return input if input.key?(:status)
 
-    # Parse
-    parsed = begin
-      Rfcxml::V3::Rfc.from_xml(input)
-    rescue StandardError => e
-      return build_error_result(basename, "Parse", e)
-    end
+    parsed = parse_input(input[:xml], basename)
+    return parsed if parsed.key?(:status)
 
-    # Serialize
-    output = begin
-      parsed.to_xml(pretty: true, declaration: true, encoding: "utf-8")
-    rescue StandardError => e
-      return build_error_result(basename, "Serialize", e)
-    end
+    output = serialize(parsed[:model], basename)
+    return output if output.key?(:status)
 
-    # Compare using Canon DOM diff with explicit match options
-    # Using DOM diff with attribute_order: ignore and attribute_values: normalize
-    # handles round-trip differences correctly
-    comparison = begin
-      Canon::Comparison.equivalent?(
-        output,
-        input,
-        diff_algorithm: :dom,
-        format: :xml,
-        match: {
-          attribute_order: :ignore,
-          attribute_values: :normalize,
-          text_content: :normalize,
-          structural_whitespace: :ignore,
-        },
-        verbose: true,
-      )
-    rescue StandardError => e
-      return build_error_result(basename, "Compare", e)
-    end
+    compare_and_build_result(output[:xml], input[:xml], filepath, basename)
+  end
 
-    # Check result
+  def read_input(filepath, basename)
+    { xml: File.read(filepath) }
+  rescue StandardError => e
+    build_error_result(basename, "Read", e)
+  end
+
+  def parse_input(xml, basename)
+    { model: model_class_for(xml).from_xml(xml) }
+  rescue StandardError => e
+    build_error_result(basename, "Parse", e)
+  end
+
+  def serialize(model, basename)
+    { xml: model.to_xml(pretty: true, declaration: true, encoding: "utf-8") }
+  rescue StandardError => e
+    build_error_result(basename, "Serialize", e)
+  end
+
+  def model_class_for(xml)
+    root_element_name(xml) == "rfc-index" ? Rfcxml::RfcIndex::RfcIndex : Rfcxml::V3::Rfc
+  end
+
+  def compare_and_build_result(output, input, filepath, basename)
+    comparison = Canon::Comparison.equivalent?(
+      output, input,
+      diff_algorithm: :dom, format: :xml,
+      match: {
+        attribute_order: :ignore,
+        attribute_values: :normalize,
+        text_content: :normalize,
+        structural_whitespace: :ignore,
+      },
+      verbose: true
+    )
+    build_comparison_result(comparison, output, filepath, basename)
+  rescue StandardError => e
+    build_error_result(basename, "Compare", e)
+  end
+
+  def build_comparison_result(comparison, output, filepath, basename)
     equivalent = comparison.respond_to?(:equivalent?) ? comparison.equivalent? : comparison
+    return pass_result(basename) if equivalent
 
-    if equivalent
-      # Pass - write empty marker file
-      write_pass_marker(basename)
-      { file: basename, status: :pass }
-    else
-      # Fail - write detailed report and source
-      differences = extract_differences(comparison)
-      write_fail_report(basename, filepath, differences)
-      write_source_output(basename, output)
-      { file: basename, status: :fail, differences: differences }
-    end
+    differences = extract_differences(comparison)
+    write_fail_report(basename, filepath, differences)
+    write_source_output(basename, output)
+    { file: basename, status: :fail, differences: differences }
+  end
+
+  def pass_result(basename)
+    write_pass_marker(basename)
+    { file: basename, status: :pass }
   end
 
   def build_error_result(basename, phase, error)

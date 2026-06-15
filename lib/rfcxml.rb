@@ -14,3 +14,4 @@ module Rfcxml
 end
 
 require_relative "rfcxml/v3"
+require_relative "rfcxml/rfc_index"
