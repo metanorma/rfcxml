@@ -3,9 +3,10 @@
 require "lutaml/model"
 require "lutaml/xml"
 
-Lutaml::Model::Config.configure do |config|
-  config.xml_adapter_type = :nokogiri
-end
+# No require-time adapter configuration: assigning xml_adapter_type here
+# globally clobbered the host application's adapter selection mid-process
+# (e.g. a parse already in flight on a different adapter, lutaml-model
+# #871). lutaml-model resolves an adapter on demand when none is pinned.
 
 module Rfcxml
   class Error < StandardError; end
