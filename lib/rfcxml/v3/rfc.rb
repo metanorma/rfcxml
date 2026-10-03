@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "lutaml/model"
+require "nokogiri"
 
 require_relative "back"
 require_relative "front"
