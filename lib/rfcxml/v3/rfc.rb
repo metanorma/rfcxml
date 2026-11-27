@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "lutaml/model"
-require "nokogiri"
 
 require_relative "back"
 require_relative "front"
@@ -86,37 +85,10 @@ module Rfcxml
         map_processing_instruction "rfc", to: :pi_settings
       end
 
-      # Override to_xml to fix SVG elements
-      # SVG elements need xmlns="http://www.w3.org/2000/svg" attribute
-      # lutaml-model doesn't properly output xmlns when serializing SVG
-      # and it incorrectly handles <text> elements (treats them as text content)
-      def to_xml(options = {})
-        xml = super
-        return xml unless xml
-
-        # Post-process to ensure SVG elements have xmlns attribute
-        doc = Nokogiri::XML(xml)
-        svg_needs_fix = doc.xpath("//svg[not(@xmlns)]").any? ||
-          doc.xpath("//svg//*[@xmlns='http://www.w3.org/2000/svg']").any?
-
-        return xml unless svg_needs_fix
-
-        doc.xpath("//svg[not(@xmlns)]").each do |svg_elem|
-          svg_elem["xmlns"] = "http://www.w3.org/2000/svg"
-        end
-
-        # Remove redundant xmlns from child elements within SVG
-        doc.xpath("//svg//*[@xmlns='http://www.w3.org/2000/svg']").each do |child|
-          child.delete("xmlns")
-        end
-
-        # Preserve XML declaration if it was in the original output
-        if xml.start_with?("<?xml")
-          doc.to_xml
-        else
-          doc.root.to_xml
-        end
-      end
+      # SVG xmlns serialization is model-driven now: lutaml-model
+      # 0.8.186+ round-trips the raw-subtree declarations verbatim
+      # (lutaml/lutaml-model#1214 triage), so the models carry the
+      # namespace mappings and no output surgery happens here.
     end
   end
 end
